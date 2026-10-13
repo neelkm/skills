@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "skill": "ovnewton-prepare-scene",
+  "cases": [
+    {"id": "explicit-mass", "prompt": "My USD cube has physics:mass = 1 but only PhysicsRigidBodyAPI and PhysicsCollisionAPI are applied. Its Newton mass is wrong. Diagnose and propose the smallest correction.", "expected": ["Identify the missing applied PhysicsMassAPI", "Inspect the imported mass rather than trusting the property text", "Preserve physical intent and source layers"]},
+    {"id": "centimetres", "prompt": "A scene has metersPerUnit = 0.01. A body output position is 100 and my controller treats it as 100 metres. Diagnose the mismatch without changing the scene.", "expected": ["Explain stage length units and the 1 metre physical distance", "Do not change metadata alone", "Check controller and metric conversions"]},
+    {"id": "physics-instancing", "prompt": "Import this robot array through ovnewton. The robots use native USD physics instances. Preserve all joints and dynamics.", "expected": ["Check the selected release's instancing restriction", "Do not silently skip instances", "Discuss a supported representation without claiming unchanged semantics before validation"]},
+    {"id": "d6-runtime", "prompt": "A D6 joint imported successfully. Can I now update every axis by editing stage joint-state fields during simulation?", "expected": ["Separate import support from runtime state synchronization", "Identify the documented D6 per-axis stage-sync limitation", "Do not conclude all direct Newton control is unavailable"]},
+    {"id": "fixture-import", "prompt": "Use the bundled assets/falling-box.usda fixture to validate this skill on a supported CPU runtime. Do not modify the source file.", "expected": ["Run the scene inspector into a new result file", "Verify one body with mass 1 kg and inspect gravity", "Run a separate bounded simulation check", "Distinguish import success from dynamic fidelity"]},
+    {"id": "cad-scope", "prompt": "Convert my STEP assembly into a visually optimized USD asset. I am not using physics yet.", "expected": ["Do not claim this physics-preparation skill performs CAD conversion", "Route to appropriate conversion guidance"]}
+  ]
+}

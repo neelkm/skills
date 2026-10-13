@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "skill": "ovnewton-select-and-setup",
+  "cases": [
+    {"id": "standalone-urdf", "prompt": "I have a URDF robot and need a standalone headless Newton loop. No Omniverse or shared stage is involved. Which setup should I use?", "expected": ["Select direct Newton", "Do not install ovnewton or a renderer merely for GPU physics"]},
+    {"id": "usd-is-not-enough", "prompt": "I have a USD file and want to inspect Newton motion in a viewer. Does that require ovnewton?", "expected": ["Explain Newton's direct USD importer and viewers", "Base the bridge choice on shared-stage integration"]},
+    {"id": "existing-stage", "prompt": "Our application already has a populated ovstage. Select a Newton integration that consumes supported drive edits and publishes motion back to the same stage.", "expected": ["Select ovnewton", "Reuse the existing runtime and stage", "Retain application ownership of stepping"]},
+    {"id": "cpu-only", "prompt": "Set up a new ovnewton CPU-only test on supported Linux without rendering. You have terminal access but no GPU.", "expected": ["Inspect interpreter and dependency metadata", "Use an isolated environment", "Run the basic example with --device cpu --no-render and a bounded frame count", "Do not claim GPU or rendering validation"]},
+    {"id": "windows-host", "prompt": "Direct Newton works on my Windows computer. Can I assume ovnewton is supported too? Do not install a VM or change drivers.", "expected": ["Check ovnewton's own platform support", "Do not infer compatibility from Newton", "Provide a supported-host path without installing system software"]},
+    {"id": "analysis-only", "prompt": "Explain the ovnewton setup for a CPU physics and RTX rendering application. You have no execution tools.", "expected": ["Separate physics and rendering requirements", "State that smoke checks were not run", "Do not claim metadata or runtime evidence that was not collected"]}
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "skill": "ovnewton-tune-physics",
+  "cases": [
+    {"id": "slipping-grasp", "prompt": "The ovnewton gripper drops its object. Increasing contact stiffness made it jitter. Propose a bounded diagnosis and tuning experiment.", "expected": ["Inspect geometry, contacts, friction, force limits, model and controller first", "Define grasp and numerical/runtime metrics", "Use solver-specific options and keep the baseline"]},
+    {"id": "stage-snapback", "prompt": "Newton moves correctly, but calling update_from_ovstage before every substep snaps it back. The stage still contains the initial state.", "expected": ["Diagnose stale state ingress and ownership", "Explain that ingress includes state and targets together", "Do not attempt to fix this with solver gains"]},
+    {"id": "render-bottleneck", "prompt": "My simulation display is slow. Physics alone is fast, and almost all frame time is rendering. Tune the Newton solver to fix it.", "expected": ["Explain the measured bottleneck", "Separate solver, publication, and rendering time", "Do not claim a physics speedup from rendering changes"]},
+    {"id": "unsupported-knob", "prompt": "Use the same effort-limit and contact parameters on XPBD, MuJoCo, and VBD. The model arrays exist, so all solvers should enforce them.", "expected": ["Check installed solver support and API", "Reject the assumption that storage implies enforcement", "Treat backend changes as model ports"]},
+    {"id": "comparison-bounds", "prompt": "The trial cuts tracking error by half but doubles penetration beyond our explicit limit. Should I retain it?", "expected": ["Reject the candidate under the stated criteria", "Keep the baseline", "Report both the gain and the exceeded limit"]},
+    {"id": "no-measurements", "prompt": "Write up the performance gain from my proposed substep change. I have not run it yet.", "expected": ["Do not invent improvement", "Describe a reproducible measurement plan", "Label the proposed result untested"]}
+  ]
+}

@@ -1,0 +1,40 @@
+name: Validate skills
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    name: Portable checks (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python scripts/validate_skills.py
+      - run: python -m unittest discover -s tests -v
+
+  cpu-runtime:
+    name: Ovnewton 0.2.0 CPU integration
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Baseline runtime only. Newer combinations need separate qualification.
+      - run: python -m pip install 'ovnewton==0.2.0' 'newton==1.6.0' 'warp-lang==1.17.0'
+      - run: python -m pip check
+      - run: python tests/runtime_smoke.py
