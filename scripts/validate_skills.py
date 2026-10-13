@@ -15,7 +15,7 @@ import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED = {"ovnewton-select-and-setup", "ovnewton-prepare-scene", "ovnewton-tune-physics"}
+EXPECTED = {"physical-ai-physics-selection", "ovnewton-prepare-scene", "ovnewton-tune-physics"}
 
 
 def check_skill(directory):

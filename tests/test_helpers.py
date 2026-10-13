@@ -22,7 +22,7 @@ def load_module(skill, script):
     return module
 
 
-probe = load_module("ovnewton-select-and-setup", "probe_environment")
+probe = load_module("physical-ai-physics-selection", "probe_environment")
 compare = load_module("ovnewton-tune-physics", "compare_runs")
 inspect = load_module("ovnewton-prepare-scene", "inspect_scene")
 

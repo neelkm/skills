@@ -29,6 +29,27 @@ The CPU CI baseline pins ovnewton 0.2.0, Newton 1.6.0, and Warp 1.17.0. Other tr
 - [USD parsing](https://github.com/newton-physics/newton/blob/1624cc70e2e030ca3dca6772b4243900202d24fb/docs/concepts/usd_parsing.rst)
 - [Viewers](https://github.com/newton-physics/newton/blob/1624cc70e2e030ca3dca6772b4243900202d24fb/docs/guide/visualization.rst)
 
+## Expanded engine selection (skill version 0.2.0)
+
+Reviewed on 2026-10-13. These current sources support the broader task-selection guidance, not a claim that every engine was installed or benchmarked. Latest/main pages can describe features newer than the pinned CPU runtime. Recommendations are task-dependent interpretations of the documented capabilities.
+
+- [Newton overview and asset formats](https://newton-physics.github.io/newton/latest/guide/overview.html)
+- [Newton replicated worlds](https://newton-physics.github.io/newton/latest/concepts/worlds.html)
+- [Newton solver and differentiation matrix](https://newton-physics.github.io/newton/latest/solvers/index.html)
+- [Newton deformable objects](https://newton-physics.github.io/newton/latest/concepts/deformable_objects.html)
+- [Newton experimental coupled solvers](https://newton-physics.github.io/newton/latest/concepts/coupling.html)
+- [Newton manipulation and contact capabilities](https://developer.nvidia.com/blog/newton-adds-contact-rich-manipulation-and-locomotion-capabilities-for-industrial-robotics/)
+- [Isaac Lab](https://developer.nvidia.com/isaac/lab)
+- [Isaac Sim 6.1 Newton integration and limitations](https://docs.isaacsim.omniverse.nvidia.com/6.1.0/physics/newton_physics.html)
+- [PhysX](https://developer.nvidia.com/physx-sdk)
+- [MuJoCo MJX implementations and differentiation](https://mujoco.readthedocs.io/en/stable/mjx.html)
+- [Bullet/PyBullet](https://github.com/bulletphysics/bullet3)
+- [VSim Robotics technology](https://www.vsimrobotics.ai/simulations-and-training)
+- [Genesis World](https://genesis-world.readthedocs.io/en/latest/user_guide/overview/what_is_genesis.html)
+- [Drake](https://drake.mit.edu/)
+
+VSim refers to VSim Robotics at vsimrobotics.ai. Its public technology page was read directly when the web reader could not load it. The page's capabilities are vendor claims; detailed API/gradient coverage and comparable performance were not verified. Its reviewed page labels USD support as incoming. Missing public details are treated as unknown, not as unsupported.
+
 ## Packaging and installation
 
 - [Agent Skills specification](https://agentskills.io/specification)

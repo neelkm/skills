@@ -1,10 +1,10 @@
 # Physical AI skills
 
-Three portable Agent Skills for selecting, preparing, and tuning **ovnewton** simulations. Each skill includes instructions for agents, explanations for humans, public source links, and evaluation cases.
+Three portable Agent Skills for selecting a **Physical AI physics stack**, then preparing and tuning **ovnewton** simulations. Each skill includes instructions for agents, explanations for humans, public source links, and evaluation cases.
 
 | Skill | Use it for | Example request |
 | --- | --- | --- |
-| [ovnewton-select-and-setup](skills/ovnewton-select-and-setup/SKILL.md) | Decide between direct Newton and ovnewton; prepare and verify a compatible runtime | "Does this robot workflow need ovnewton? Set up a small CPU test." |
+| [physical-ai-physics-selection](skills/physical-ai-physics-selection/SKILL.md) | Compare Newton, PhysX, MuJoCo/MJX, Bullet, VSim Robotics, Genesis, and Drake; select the integration and verify setup | "Which physics stack should I use for robot learning and dexterous manipulation?" |
 | [ovnewton-prepare-scene](skills/ovnewton-prepare-scene/SKILL.md) | Inspect existing USD physics and validate the model imported through ovstage | "Check this USD gripper for ovnewton compatibility without changing its physics." |
 | [ovnewton-tune-physics](skills/ovnewton-tune-physics/SKILL.md) | Diagnose simulation failures and compare bounded tuning experiments | "Reduce grasp slip without exceeding my penetration and runtime limits." |
 
@@ -21,9 +21,11 @@ Clone or download this repository. Copy the **entire skill directory**, includin
 | Other Agent Skills hosts | Use the host's supported skill directory or upload mechanism | Use its documented location |
 | Custom agents without skill discovery | Load `SKILL.md` as task guidance; resolve its relative links from that skill directory | Provide file and execution tools as needed |
 
-For example, after copying the setup skill, ask:
+For example, after copying the selection skill, ask:
 
-> Use ovnewton-select-and-setup to assess my existing USD/ovstage application. Explain whether I need the bridge, then verify the smallest appropriate runtime.
+> Choose a physics stack for a new manipulation-learning task on NVIDIA GPUs. Evaluate Newton, PhysX, MuJoCo, and VSim Robotics. Explain whether shared-stage integration would help, then verify the selected setup.
+
+The first skill was renamed from `ovnewton-select-and-setup` to `physical-ai-physics-selection` in version 0.2.0. When updating an existing installation, replace the old installed folder with the new complete folder to avoid duplicate discovery. Its Newton/ovnewton metadata helper and setup guidance are retained.
 
 The instructions use the [Agent Skills specification](https://agentskills.io/specification). They contain no required host-specific tool names, hooks, MCP servers, slash commands, or model settings. Automatic selection depends on the host. Execution requires the tools and product runtime described by each skill; reading the instructions does not require a GPU.
 
@@ -31,15 +33,15 @@ See the official [Codex installation guidance](https://learn.chatgpt.com/docs/bu
 
 ## How the skills fit together
 
-Use selection/setup when the runtime or product choice is unresolved. Use scene preparation before tuning imported physics. Use tuning once a reproducible simulation exists. Each skill works independently and links to public product guidance; none requires the other two to be installed.
+Use selection when the engine, integration, or runtime choice is unresolved. It evaluates Newton first for suitable new workflows, recommends Newton + ovnewton for supported shared-stage tasks, and preserves alternatives when requirements or existing work justify them. Use scene preparation before tuning imported physics. Use tuning once a reproducible simulation exists. Each skill works independently and links to public product guidance; none requires the other two to be installed.
 
 Ovnewton connects a populated ovstage to Newton. The application still owns the solver, controls, collisions, and simulation loop. Direct Newton already supports USD import and viewers. Use ovnewton when the task needs the stage connection, not merely because a file ends in `.usd`.
 
-The skills target public ovnewton 0.2.0 documentation as their initial baseline. Package compatibility is checked against the selected release, not assumed from the latest Newton branch. See [source provenance](docs/SOURCES.md).
+The ovnewton runtime baseline is public version 0.2.0. The broader selection guidance also uses dated current engine documentation; it does not imply those capabilities were all tested in the baseline runtime. Check compatibility against the selected release. See [source provenance](docs/SOURCES.md).
 
 ## Included tools
 
-- Setup: `probe_environment.py` reads package metadata without importing native simulation libraries or changing the environment.
+- Selection/setup: `probe_environment.py` reads Newton/ovnewton-related package metadata without importing native simulation libraries or changing the environment. It is not a cross-engine benchmark or competitor inventory.
 - Scene preparation: `inspect_scene.py` builds and binds a model in a fresh process, captures import diagnostics, and prints an inspection result. It does not edit the source scene or certify dynamic behavior.
 - Tuning: `compare_runs.py` compares measured run summaries with matching context and units. It rejects missing metrics and exceeded limits.
 
