@@ -8,7 +8,7 @@ Use as the documented basic-example starting point when its feature set fits the
 
 ## MuJoCo-Warp
 
-The documented ovnewton path registers `SolverMuJoCo` custom attributes before population and uses Newton contacts through `use_mujoco_contacts=False`. Selecting this solver does not require MuJoCo-authored USD schemas.
+The documented ovnewton path registers `SolverMuJoCo` custom attributes on the builder before `add_ovstage` and uses Newton contacts through `use_mujoco_contacts=False`. Selecting this solver does not require MuJoCo-authored USD schemas.
 
 Distinguish contact-capacity failures from convergence failures. Inspect the installed constructor before changing capacities such as `njmax` or `nconmax`, or options such as integrator, iterations, tolerances, and friction cone. Do not use native MuJoCo CPU execution as an unexplained replacement for the intended Warp backend.
 

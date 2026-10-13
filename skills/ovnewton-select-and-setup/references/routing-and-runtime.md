@@ -41,7 +41,7 @@ Do not remove physical constraints to make an installation check pass. Use the p
 
 ## Runtime ownership
 
-The application owns state allocation, controls, collision detection, solver stepping, and timing. MuJoCo and VBD need their solver attributes registered before population; VBD needs builder coloring before finalization. Use the installed example as the starting point rather than translating parameter names between solvers.
+The application owns state allocation, controls, collision detection, solver stepping, and timing. MuJoCo and VBD need their solver attributes registered on the builder before `add_ovstage`; VBD needs builder coloring before finalization. Use the installed example as the starting point rather than translating parameter names between solvers.
 
 For the documented ovnewton MuJoCo path, MuJoCo-Warp advances the model and Newton's collision pipeline supplies contacts (`use_mujoco_contacts=False`). Choosing this solver does not require authoring MuJoCo-specific USD schemas.
 

@@ -12,9 +12,9 @@ Date: 2026-10-13. This record describes completed checks and the limits of the e
 
 ## Runtime and agent scope
 
-The local host does not provide a supported Linux ovnewton environment. GitHub Actions is configured to run portable checks on Linux and Windows, plus a Linux CPU integration job using ovnewton 0.2.0, Newton 1.6.0, and Warp 1.17.0. At this revision, that remote run has not yet been verified.
+The local host does not provide a supported Linux ovnewton environment. [GitHub Actions run 38440362196](https://github.com/neelkm/skills/actions/runs/38440362196) passed portable checks on Linux and Windows, plus the Linux CPU integration job. The runtime used Python 3.12.15, ovnewton 0.2.0, Newton 1.6.0, Warp 1.17.0, and resolved ovstage 0.2.1.385922. Dependency consistency checks also passed.
 
-The CPU job inspects the original falling-box fixture, checks body/shape counts, mass, and gravity, and runs eight-frame packaged examples with XPBD and VBD. It does not test MuJoCo-Warp, CUDA execution, RTX rendering, long-horizon contact stability, or a trained policy.
+The CPU job inspected the original falling-box fixture, checked body/shape counts, mass, and gravity, and passed eight-frame packaged examples with XPBD and VBD. Newton emitted a VBD deprecation warning: the packaged example uses the legacy default `rigid_compliant_alm=False`, which is planned to change. This result does not qualify the future default. The job did not test MuJoCo-Warp, CUDA execution, RTX rendering, long-horizon contact stability, or a trained policy.
 
 The 18 evaluation prompts are ready for use but have not been run as a paired with-skill/without-skill benchmark in Claude Code, Codex, or other agent hosts. No measured agent uplift or universal platform compatibility is claimed. The shared Agent Skills format and host installation documentation provide the portability basis.
 
@@ -46,9 +46,9 @@ All 18 helper tests passed on Windows with Python 3.13.12. The first run could n
 
 All Python files compiled successfully. The environment probe ran without installed simulation packages. It correctly reported metadata-only evidence. It reported runtime testing as false. It also reported GPU testing as false.
 
-The local host does not have a supported Linux ovnewton environment. GitHub Actions will run portable checks on Linux and Windows. Its Linux CPU job uses ovnewton 0.2.0, Newton 1.6.0, and Warp 1.17.0. The remote run has not yet been verified at this revision.
+The local host does not have a supported Linux ovnewton environment. [GitHub Actions run 38440362196](https://github.com/neelkm/skills/actions/runs/38440362196) passed portable checks on Linux and Windows. The Linux CPU integration job also passed. The runtime used Python 3.12.15, ovnewton 0.2.0, Newton 1.6.0, and Warp 1.17.0. The resolved ovstage version was 0.2.1.385922. Dependency consistency checks also passed.
 
-The CPU job inspects the original falling-box fixture. It checks body/shape counts, mass, and gravity. It runs eight-frame packaged examples with XPBD and VBD. It does not test MuJoCo-Warp, CUDA execution, RTX rendering, long-horizon contact stability, or a trained policy.
+The CPU job inspected the original falling-box fixture. It checked body/shape counts, mass, and gravity. It passed eight-frame packaged examples with XPBD and VBD. Newton gave a VBD deprecation warning. The packaged example uses the legacy default `rigid_compliant_alm=False`. This default is planned to change. The result does not qualify the future default. The job did not test MuJoCo-Warp, CUDA execution, RTX rendering, long-horizon contact stability, or a trained policy.
 
 The 18 evaluation prompts are ready to use. No paired with-skill/without-skill benchmark has run in Claude Code, Codex, or other agent hosts. No measured agent improvement is claimed. No universal platform compatibility is claimed. Portability is based on the shared Agent Skills format and the host installation documentation.
 
