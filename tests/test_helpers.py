@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def load_module(skill, script):
-    path = ROOT / "skills" / skill / "scripts" / f"{script}.py"
+    path = ROOT / "skills" / "ovnewton" / skill / "scripts" / f"{script}.py"
     spec = importlib.util.spec_from_file_location(script, path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -148,7 +148,7 @@ class InspectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             output = Path(temp) / "result.json"
             output.write_text("keep-me", encoding="utf-8")
-            asset = ROOT / "skills/ovnewton-prepare-scene/assets/falling-box.usda"
+            asset = ROOT / "skills/ovnewton/ovnewton-prepare-scene/assets/falling-box.usda"
             result = subprocess.run([sys.executable, inspect.__file__, str(asset), "--output", str(output)], capture_output=True, text=True, timeout=20)
             self.assertEqual(result.returncode, 2)
             self.assertEqual(output.read_text(encoding="utf-8"), "keep-me")

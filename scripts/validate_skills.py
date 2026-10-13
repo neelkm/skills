@@ -65,9 +65,9 @@ def check_skill(directory):
 
 
 def main():
-    directories = sorted((ROOT / "skills").iterdir())
+    directories = sorted((ROOT / "skills" / "ovnewton").iterdir())
     if {p.name for p in directories if p.is_dir()} != EXPECTED:
-        raise ValueError("expected exactly the three published skill directories")
+        raise ValueError("expected exactly the three published skill directories under skills/ovnewton")
     for directory in directories:
         if directory.is_dir():
             count = check_skill(directory)

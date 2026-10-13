@@ -11,7 +11,7 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SKILL = ROOT / "skills/ovnewton-prepare-scene"
+SKILL = ROOT / "skills/ovnewton/ovnewton-prepare-scene"
 ASSET = SKILL / "assets/falling-box.usda"
 
 

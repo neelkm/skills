@@ -4,15 +4,24 @@ Three portable Agent Skills for selecting a **Physical AI physics stack**, then 
 
 | Skill | Use it for | Example request |
 | --- | --- | --- |
-| [physical-ai-physics-selection](skills/physical-ai-physics-selection/SKILL.md) | Compare Newton, PhysX, MuJoCo/MJX, Bullet, VSim Robotics, Genesis, and Drake; select the integration and verify setup | "Which physics stack should I use for robot learning and dexterous manipulation?" |
-| [ovnewton-prepare-scene](skills/ovnewton-prepare-scene/SKILL.md) | Inspect existing USD physics and validate the model imported through ovstage | "Check this USD gripper for ovnewton compatibility without changing its physics." |
-| [ovnewton-tune-physics](skills/ovnewton-tune-physics/SKILL.md) | Diagnose simulation failures and compare bounded tuning experiments | "Reduce grasp slip without exceeding my penetration and runtime limits." |
+| [physical-ai-physics-selection](skills/ovnewton/physical-ai-physics-selection/SKILL.md) | Compare Newton, PhysX, MuJoCo/MJX, Bullet, VSim Robotics, Genesis, and Drake; select the integration and verify setup | "Which physics stack should I use for robot learning and dexterous manipulation?" |
+| [ovnewton-prepare-scene](skills/ovnewton/ovnewton-prepare-scene/SKILL.md) | Inspect existing USD physics and validate the model imported through ovstage | "Check this USD gripper for ovnewton compatibility without changing its physics." |
+| [ovnewton-tune-physics](skills/ovnewton/ovnewton-tune-physics/SKILL.md) | Diagnose simulation failures and compare bounded tuning experiments | "Reduce grasp slip without exceeding my penetration and runtime limits." |
 
 These are independently authored community skills. They are not NVIDIA-verified catalog entries. They use public product documentation; they do not require access to an internal repository.
 
 ## Install and use
 
-Clone or download this repository. Copy the **entire skill directory**, including its references, scripts, and assets, into the location your agent discovers. Install only the skills you need.
+Clone or download this repository. The three skill directories are grouped under `skills/ovnewton/`:
+
+```text
+skills/ovnewton/
+  physical-ai-physics-selection/
+  ovnewton-prepare-scene/
+  ovnewton-tune-physics/
+```
+
+Copy each **entire skill directory**, including its references, scripts, and assets, into the location your agent discovers. Install only the skills you need. The `ovnewton` parent is a repository grouping; install the individual skill folders in the host locations below.
 
 | Host | Project installation | Personal installation |
 | --- | --- | --- |
@@ -59,7 +68,7 @@ GitHub Actions checks packaging and helper behavior on Linux and Windows. A sepa
 
 Each skill's `evals/cases.json` contains portable test prompts and behavioral acceptance criteria. Evaluate selection and task behavior in the target agent before claiming verified support or measured improvement. These files are a repository-local evaluation format, not a claim of compatibility with a particular evaluation service.
 
-When updating a skill, check its public references, rerun tests, and evaluate changed behavior. Keep the `skills/` directories as the source of truth; do not maintain separate Claude and Codex instruction copies.
+When updating a skill, check its public references, rerun tests, and evaluate changed behavior. Keep the skill directories under `skills/ovnewton/` as the source of truth; do not maintain separate Claude and Codex instruction copies.
 
 ## License
 
