@@ -15,7 +15,10 @@ import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED = {"physical-ai-physics-selection", "ovnewton-prepare-scene", "ovnewton-tune-physics"}
+EXPECTED = {
+    "ovnewton": {"physical-ai-physics-selection", "ovnewton-prepare-scene", "ovnewton-tune-physics"},
+    "ovphysx": {"physical-ai-ovphysx-selection"},
+}
 
 
 def check_skill(directory):
@@ -65,11 +68,15 @@ def check_skill(directory):
 
 
 def main():
-    directories = sorted((ROOT / "skills" / "ovnewton").iterdir())
-    if {p.name for p in directories if p.is_dir()} != EXPECTED:
-        raise ValueError("expected exactly the three published skill directories under skills/ovnewton")
-    for directory in directories:
-        if directory.is_dir():
+    seen_names = set()
+    for group, names in EXPECTED.items():
+        directories = sorted(p for p in (ROOT / "skills" / group).iterdir() if p.is_dir())
+        if {p.name for p in directories} != names:
+            raise ValueError(f"unexpected published skill directories under skills/{group}")
+        for directory in directories:
+            if directory.name in seen_names:
+                raise ValueError(f"duplicate installable skill name: {directory.name}")
+            seen_names.add(directory.name)
             count = check_skill(directory)
             print(f"PASS {directory.name}: portable metadata, resources, {count} evaluation cases")
 

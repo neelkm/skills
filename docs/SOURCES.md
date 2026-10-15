@@ -50,6 +50,14 @@ Reviewed on 2026-10-13. These current sources support the broader task-selection
 
 VSim refers to VSim Robotics at vsimrobotics.ai. Its public technology page was read directly when the web reader could not load it. The page's capabilities are vendor claims; detailed API/gradient coverage and comparable performance were not verified. Its reviewed page labels USD support as incoming. Missing public details are treated as unknown, not as unsupported.
 
+## Ovphysx selection and execution (skill version 0.1.0)
+
+Reviewed on 2026-10-14 against public ovphysx 0.6.4 and [NVIDIA-Omniverse/PhysX commit `6dc53585d7db07346f53d0598a5fd3bfdce47d8d`](https://github.com/NVIDIA-Omniverse/PhysX/tree/6dc53585d7db07346f53d0598a5fd3bfdce47d8d/ovphysx), dated 2026-10-09. The new skill uses the existing selection skill's structure and public product sources. No internal SDK documentation is included or required.
+
+The skill's references link directly to the corresponding versioned overview, quickstart, developer guide, simulation-setup pages, population/ordinal contract, session read/write contract, clone tutorial, and upstream runbook index. The CPU example is adapted from the documented lifecycle and session API; it is not a runtime test result. Alternative-engine links are routes for task-specific verification, not a new cross-engine qualification or benchmark.
+
+The current source snapshot resolves a packaging difference in older pages: USD ingestion and its runtime come from the matching ovstage package. It also supplies important conditions for early schema registration, native-instance population, clone ordering and isolation, DirectGPU initialization, mixed angular units, and explicit output publication. Check the selected artifact's documentation when a later release changes these contracts.
+
 ## Packaging and installation
 
 - [Agent Skills specification](https://agentskills.io/specification)

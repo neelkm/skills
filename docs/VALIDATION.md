@@ -1,6 +1,6 @@
 # Validation record
 
-Date: 2026-10-13. This record describes completed checks and the limits of the evidence. It is not a NVIDIA catalog certification or a live-agent benchmark.
+Original record: 2026-10-13. The ovphysx addition below is dated 2026-10-14. This record describes completed checks and the limits of the evidence. It is not a NVIDIA catalog certification or a live-agent benchmark.
 
 ## Completed locally
 
@@ -40,9 +40,19 @@ python tests/runtime_smoke.py
 
 See [the workflow](../.github/workflows/validate.yml), [public source provenance](SOURCES.md), and each skill's `evals/cases.json`. Store real run evidence separately from synthetic examples.
 
+## Ovphysx addition: 2026-10-14
+
+Added `physical-ai-ovphysx-selection` version 0.1.0 under `skills/ovphysx/`. Its seven-file package contains the entrypoint, four supporting references, a metadata probe, and 23 evaluation-case definitions. The repository now contains four skills and 53 evaluation-case definitions.
+
+The new skill passed the skill-creator validator. All four skills passed the repository validator, including metadata, local resource links, evaluation structure, and unique installable names. All 21 helper tests passed on Windows with bundled Python 3.12.14. The metadata probe ran and reported no installed ovphysx, ovstage, or Warp in that interpreter. It correctly reported runtime, GPU, and dependency-compatibility testing as false.
+
+All repository Python source files and the new reference's Python code example passed syntax checks. The portable ZIP passed an integrity check and contained all seven intended files, excluding Python caches. The sandbox command runner stalled; completed checks ran outside that sandbox. The bundled interpreter lacked PyYAML, so the two YAML-based validators used the existing Python 3.13 environment instead.
+
+The ovphysx CPU lifecycle example, GPU execution, rendering, robot controls, contacts, cloning, reset, and performance were not executed or benchmarked. The 23 new evaluation cases were checked as data; they were not run as live-agent evaluations. The existing ovnewton CI result does not qualify ovphysx. No simulation performance, agent improvement, or full ASD-STE100 compliance is claimed.
+
 ## ASD-STE100-style version
 
-Date: 2026-10-13. This record lists completed checks and their limits. It does not certify the skills for NVIDIA's catalog. It is not a live-agent benchmark.
+Original record: 2026-10-13. The ovphysx addition below is dated 2026-10-14. This record lists completed checks and their limits. It does not certify the skills for NVIDIA's catalog. It is not a live-agent benchmark.
 
 All three skill entrypoints passed the skill-creator metadata validator. The repository validator passed for all three skills. It checked portable metadata, resource links, and 30 evaluation-case definitions. Physics selection has 18 cases. Scene preparation and tuning each have six cases.
 
@@ -77,3 +87,17 @@ python tests/runtime_smoke.py
 ```
 
 See [the workflow](../.github/workflows/validate.yml), [public source provenance](SOURCES.md), and each skill's `evals/cases.json`. Keep real run evidence separate from synthetic examples.
+
+### Ovphysx addition: 2026-10-14
+
+The repository now includes `physical-ai-ovphysx-selection` version 0.1.0. Its location is `skills/ovphysx/`. Its package has seven files. These files contain the entrypoint, four supporting references, a metadata probe, and 23 evaluation-case definitions. The repository now has four skills. It has 53 evaluation-case definitions.
+
+The new skill passed the skill-creator validator. All four skills passed the repository validator. This validator checked metadata and local resource links. It checked evaluation structure. It also checked that each installable skill has a unique name.
+
+All 21 helper tests passed on Windows with bundled Python 3.12.14. The metadata probe ran in that interpreter. It found no installed ovphysx, ovstage, or Warp. It correctly reported runtime testing as false. It reported GPU testing as false. It also reported dependency-compatibility testing as false.
+
+All repository Python source files passed syntax checks. The Python example in the new reference also passed its syntax check. The portable ZIP passed an integrity check. It contained all seven intended files. It excluded Python caches.
+
+The sandbox command runner stalled. The completed checks ran outside that sandbox. The bundled interpreter did not have PyYAML. The two YAML-based validators therefore used the existing Python 3.13 environment.
+
+The ovphysx CPU lifecycle example was not executed. GPU execution and rendering were not tested. Robot controls, contacts, cloning, and reset were not tested. Performance was not benchmarked. The 23 new evaluation cases were checked as data. They were not run as live-agent evaluations. The existing ovnewton CI result does not qualify ovphysx. No simulation performance or agent improvement is claimed. No full ASD-STE100 compliance is claimed.
