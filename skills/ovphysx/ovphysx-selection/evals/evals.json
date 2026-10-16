@@ -1,0 +1,118 @@
+{
+  "skill_name": "ovphysx-selection",
+  "evals": [
+    {
+      "id": "ovphysx-selection-standalone-usd",
+      "prompt": "We are selecting a physics engine for a standalone Python service with USD industrial robots and NVIDIA GPUs. We want no Kit dependency. Evaluate ovphysx first, compare its closest viable alternative, and give a selection and verification plan. Do not install anything.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "A provisional requirements-based choice separating PhysX, solver configuration, device, ovphysx/ovstage integration, and application features. It compares a relevant alternative, identifies release-specific uncertainties and a representative control/contact check, and does not install or claim unmeasured speed or accuracy superiority.",
+      "assertions": [
+        "Reads ovphysx-selection/SKILL.md.",
+        "Evaluates ovphysx as the initial candidate while allowing hard requirements to change the choice.",
+        "Distinguishes the PhysX engine from ovphysx and from a complete learning or sensor framework.",
+        "Provides a task-specific alternative and a bounded verification plan.",
+        "Does not install packages or report unperformed measurements."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-metadata-probe",
+      "prompt": "Use ovphysx-selection to inspect this Python environment before a possible ovphysx installation. Run its metadata probe and explain the JSON result. Do not install anything, import a native simulation library, or initialize CUDA.",
+      "expected_skill": "ovphysx-selection",
+      "expected_script": "scripts/probe_environment.py",
+      "expected_output": "Executes the supplied standard-library probe and reports the actual interpreter, relevant installed versions or missing packages, and declared requirements. It explains that status metadata_only and false runtime_tested, gpu_tested, and dependency_compatibility_tested do not establish readiness or package compatibility.",
+      "assertions": [
+        "Reads ovphysx-selection/SKILL.md.",
+        "Executes scripts/probe_environment.py with the intended Python interpreter.",
+        "Reports actual metadata rather than assuming ovphysx is installed.",
+        "Does not equate package presence or missing packages with a passed or failed simulation.",
+        "Does not install packages or initialize a simulation runtime."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-cpu-first-run",
+      "prompt": "Prepare a minimal runnable Python first-run check for ovphysx 0.6.4 on supported Linux x86_64 with AVX, using its packaged rigid-body scene. It must force CPU mode, run eight steps, read state, and clean up. Return code and install commands, but do not install or run the simulation here.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Provides a release-aware CPU lifecycle program with hard CPU mode before instance creation, codeless-schema registration before population, physics-inclusive population, sealing, attach, eight synchronized steps, a nonempty rigid-body read, and cleanup. It explains that the lifecycle check is not task-fidelity validation and marks the simulation not run.",
+      "assertions": [
+        "Reads ovphysx-selection/SKILL.md and the runtime reference.",
+        "Registers schemas before population and seals the populated ordinal before attaching.",
+        "Sets hard CPU mode before creating an ovphysx instance.",
+        "Returns bounded stepping, state readback, and lifetime-safe cleanup.",
+        "Does not install a GPU driver, require rendering, or claim executed simulation evidence."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-shared-stage",
+      "prompt": "We are adopting ovphysx in an app that already populated a stage at ordinal 12. It contains native USD instances. After stepping we publish physics output at ordinal 14, then author controls at 15. Should physics drain 13 through 15? Explain population and update requirements without rebuilding the app.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Reuses the application's compatible stage and sealed ordinal, checks early schema registration and ALL population for native instances, and excludes physics-output ordinal 14 from every input drain. It drains the new control at (15,15), retains ownership of publication/sealing, and does not silently repopulate the existing stage.",
+      "assertions": [
+        "Reads ovphysx-selection/SKILL.md.",
+        "Uses the existing stage and its actual sealed ordinal rather than assuming 1.",
+        "Checks the documented native-instance limitation of PHYSICS-only population.",
+        "Rejects an input range that includes physics-output ordinal 14.",
+        "Keeps output publication and consumer ordering under application ownership."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-batch-contract",
+      "prompt": "We are evaluating ovphysx for batched robot learning. Our prototype warms up, clones more environments, and reads DirectGPU state. CPU tests use co-located clones with different env_ids. Give a corrected setup/reset sequence and explain what we need to measure; do not run a benchmark.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Clones before warmup or first step, completes DirectGPU initialization before state access, then restores intended episode state with correct time accounting. It states that env_ids do not isolate CPU clones, proposes spatial separation or a verified alternative, distinguishes episode reset from reset_stage, and measures the full control/observation/reset loop without inventing speed results.",
+      "assertions": [
+        "Reads ovphysx-selection/SKILL.md.",
+        "Orders cloning before warmup and the first step.",
+        "Recognizes the DirectGPU first-step read/write precondition.",
+        "Does not claim env_ids provide CPU collision isolation.",
+        "Distinguishes selected-environment state reset from stage lifecycle reset.",
+        "Does not invent performance measurements."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-units",
+      "prompt": "Before adopting ovphysx 0.6.4, check our controller interface. It uses radians for jointPosition, rigid-body angularVelocity, and the articulation Jacobian. We also have a prismatic joint. Can one degrees-to-radians conversion handle every returned value?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Rejects one global conversion. Rotational joint positions/targets use degrees and joint velocity uses degrees/s; rigid/link angular velocity uses rad/s; inverse-dynamics angular coordinates use radians; prismatic quantities retain scene length units. It checks frames and identity mapping at the controller boundary.",
+      "assertions": [
+        "Reads ovphysx-selection/SKILL.md and the relevant data contract reference.",
+        "Distinguishes rotational joint units from rigid-body angular velocity and inverse-dynamics coordinates.",
+        "Keeps prismatic units tied to the scene length unit.",
+        "Uses per-group identity and per-attribute frame information rather than assuming row order."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-required-gradients",
+      "prompt": "I need automatic gradients through contact dynamics for friction and actuator identification. Should I select ovphysx because it returns Warp arrays, exposes inverse dynamics, and can evaluate SDF gradients? Give a selection decision without installing anything.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Explains that tensor interop, inverse-dynamics quantities, and SDF spatial derivatives do not establish automatic differentiation through PhysX rollouts. It treats the required path as unverified/unmet, compares a specifically supported alternative, and proposes a representative gradient check without silently replacing the requirement with finite differences or black-box optimization.",
+      "assertions": [
+        "Reads ovphysx-selection/SKILL.md.",
+        "Does not claim automatic rollout differentiation from Warp or DLPack output.",
+        "Allows the hard requirement to override the ovphysx preference.",
+        "Preserves the requested automatic-gradient requirement and verifies a candidate alternative path.",
+        "Does not install packages or invent gradient-test results."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-negative-mujoco",
+      "prompt": "In our existing native MuJoCo application, show how to reset the robot state. Keep the MuJoCo model and API. We are not selecting or migrating physics engines.",
+      "expected_skill": null,
+      "expected_output": "Addresses MuJoCo reset semantics without loading ovphysx-selection or introducing ovphysx, ovstage, or a simulator migration.",
+      "assertions": [
+        "Does not load ovphysx-selection/SKILL.md.",
+        "Preserves the existing MuJoCo model and API.",
+        "Does not introduce ovphysx or ovstage."
+      ]
+    },
+    {
+      "id": "ovphysx-selection-negative-usd-authoring",
+      "prompt": "Show how to author a camera and a distant light in a USD file for rendering. No physics engine or simulation is involved.",
+      "expected_skill": null,
+      "expected_output": "Provides USD camera/light authoring guidance without loading ovphysx-selection or adding a physics scene, ovphysx, or a simulation loop.",
+      "assertions": [
+        "Does not load ovphysx-selection/SKILL.md.",
+        "Does not add a physics engine, scene, or simulation loop."
+      ]
+    }
+  ]
+}

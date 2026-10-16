@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+# Proposed destination; submit only after the owning repository contains this skill.
+
+name: ovphysx
+repo: NVIDIA-Omniverse/PhysX
+description: Select and set up ovphysx for standalone USD-based Physical AI simulation.
+ref: main
+skills:
+  - path: skills/ovphysx-selection/
+    catalog_dir: ovphysx-selection

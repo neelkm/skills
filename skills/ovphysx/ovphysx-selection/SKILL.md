@@ -1,10 +1,12 @@
 ---
-name: physical-ai-ovphysx-selection
-description: Select and use a physics stack for Physical AI with PhysX through ovphysx as the first candidate for suitable standalone USD workflows. Compare relevant engines, choose standalone or framework integration, verify setup, and plan controls, contacts, cloning, resets, and validation. Use for ovphysx adoption, simulator comparisons involving ovphysx, migration decisions, and first-run problems. Preserve an explicitly selected engine or framework.
+name: ovphysx-selection
+description: Choose and set up ovphysx for USD robot simulation. Use for physics-engine selection, ovphysx adoption, and first-run checks.
 license: Apache-2.0
 metadata:
-  version: "0.1.0"
+  author: Neelakantan Mani <neelakantanm@nvidia.com>
+  version: "0.2.0"
   category: physical-ai
+  tags: "ovphysx, physx, physics-engine-selection, robotics, usd, physical-ai"
 ---
 
 # Select and use ovphysx for a Physical AI workflow
@@ -13,7 +15,13 @@ Recommend a usable simulation stack for the user's task. Evaluate **PhysX throug
 
 **For human readers:** PhysX is the physics engine. TGS and PGS are constraint-solver choices. Ovphysx exposes PhysX through a standalone C API and Python bindings, with application-owned ovstage input and tensor access. It does not require Omniverse Kit. Isaac Sim and Isaac Lab add application and learning capabilities through their own supported integrations. The maturity of PhysX does not make the pre-release ovphysx API stable.
 
-## Understand the task
+## When to Use This Skill
+
+Use when choosing whether ovphysx fits a Physical AI task, planning adoption or migration, or establishing a first working ovphysx loop. Preserve an already selected engine. Do not activate for unrelated USD camera/light authoring, standalone Newton development, or a narrow fix in an existing MuJoCo, Bullet, or native PhysX application that requires no simulator decision. For established ovphysx code, use this skill only when its setup, task fit, or integration contract is unresolved; the shipped product runbooks cover detailed API operations.
+
+## Instructions
+
+### Understand the task
 
 Infer requirements from the request and project. Ask only about missing information that changes the decision. Establish:
 
@@ -25,7 +33,7 @@ Infer requirements from the request and project. Ask only about missing informat
 
 Preserve an explicitly chosen engine and implementation scope. A selection-only request needs a recommendation and verification plan, not an installation. If implementation is requested, carry the selected path through setup and a representative check within the available environment.
 
-## Evaluate ovphysx and the relevant alternatives
+### Evaluate ovphysx and the relevant alternatives
 
 Read [engine selection](references/engine-selection.md) for task-fit evidence, alternatives, and release qualifications. Compare the closest alternatives, not every engine for every request.
 
@@ -43,7 +51,7 @@ Apply these distinctions:
 
 An unsupported hard requirement rules out the path unless the user accepts a specific reformulation. Resolve an unknown before claiming a complete fit. Recommend another engine when it better meets the requirements; do not treat missing competitor documentation as a limitation.
 
-## Choose the integration
+### Choose the integration
 
 | Situation after requirements review | Starting path |
 | --- | --- |
@@ -56,7 +64,7 @@ An unsupported hard requirement rules out the path unless the user accepts a spe
 
 Read [routing and runtime](references/routing-and-runtime.md) before installation or first-run diagnosis. Use the selected release's packaged examples and API documentation. Do not transplant old tensor-binding or USD-loading examples into a different API generation.
 
-## Set up, execute, and use the selected path
+### Set up, execute, and use the selected path
 
 For ovphysx setup, run the optional [metadata probe](scripts/probe_environment.py) with the intended application's interpreter:
 
@@ -78,10 +86,28 @@ Read [workflow execution](references/workflow-execution.md) for the user's next 
 
 Use upstream packaged runbooks when available, as described in the runtime reference. They are implementation aids, not required installed sibling skills.
 
-## Validate and deliver the decision
+### Validate and deliver the decision
 
 Read [selection validation](references/selection-validation.md) for the smallest representative test and fair comparisons. Check the task's behavior, including contacts, control limits, reset, and identity mapping. Do not tune away required physics to pass a runtime check. Benchmark the actual workload before making a performance claim.
 
 Give the engine, solver configuration, device, and integration separately. Explain the task-specific fit, the closest viable alternative, conditions or unknowns, source and runtime versions, checks actually run, and the next bounded action. Distinguish documentation evidence, vendor claims, and measurements. If no candidate meets all hard requirements, state what remains unresolved.
 
 Keep the output proportional to the request. A straightforward fit can use a short recommendation. A migration or disputed performance claim needs supporting comparison evidence.
+
+## Examples
+
+- "Choose a standalone USD robot simulation stack with ovphysx as the main candidate. Compare the closest alternative before installing." Establish requirements, compare complete supported paths, and provide a provisional choice plus a discriminating test.
+- "Give me a bounded ovphysx CPU first-run check with no rendering." Use the matching release, early schema registration, population/sealing, synchronized steps, state readback, and cleanup from the runtime reference. Label commands not run.
+- "Our DirectGPU rollout has empty observations before the first step." Check initialization and clone ordering before treating empty groups as an empty scene; verify the selected read attributes and identities.
+
+## Requirements and tools
+
+Selection can use project-file reads and public documentation. Setup may need shell execution and network access to obtain approved packages. Use the intended interpreter and project directory. The optional probe uses only Python's standard library, reads installed package metadata, and emits JSON to stdout. It does not install packages or call external services. Simulation execution needs a compatible ovphysx runtime; GPU checks additionally need supported hardware and drivers. No MCP server or product API credential is required by this skill. Credentials for private assets or package indexes remain application-specific and must not be embedded in generated code or reports.
+
+## Available scripts
+
+| Script | Purpose | Arguments |
+| --- | --- | --- |
+| [probe_environment.py](scripts/probe_environment.py) | Inventory interpreter, installed packages, and declared requirements without importing native libraries | None; run `python scripts/probe_environment.py` from this skill's directory with the application's interpreter |
+
+Exit 0 means metadata collection completed; inspect the JSON instead of treating it as runtime validation. Exit 1 and `status: probe_failed` mean metadata inspection failed; resolve the reported error before retrying. Missing packages are represented by `null`, not a failed simulation.

@@ -1,6 +1,14 @@
 # Validation record
 
-Original record: 2026-10-13. The ovphysx addition below is dated 2026-10-14. This record describes completed checks and the limits of the evidence. It is not a NVIDIA catalog certification or a live-agent benchmark.
+Original record: 2026-10-13. The ovphysx addition is dated 2026-10-14, and its submission-format replacement is dated 2026-10-16. This record describes completed checks and the limits of the evidence. It is not a NVIDIA catalog certification or a live-agent benchmark.
+
+## Ovphysx submission-format replacement: 2026-10-16
+
+Replaced `physical-ai-ovphysx-selection` 0.1.0 with `ovphysx-selection` 0.2.0 at `skills/ovphysx/ovphysx-selection/`. The 12 source files match the prepared submission package. The old installable folder was removed, and installation links and the probe tests use the new name. [Submission materials](../submissions/ovphysx/README.md) include the proposed catalog registration, an inactive validation-workflow template, PR drafts, and report alternatives.
+
+All four skills passed the repository validator: 30 ovnewton cases and nine ovphysx CI cases. The original 23 ovphysx cases remain in the separate submission directory, together with their converted NVIDIA-format dataset. The repository validator now accepts both dataset formats and checks expected-script paths. All 24 helper tests passed on Windows with Python 3.13, including three tests for dataset compatibility and rejection of invalid or ambiguous data. The renamed skill passed the skill-creator validator.
+
+The preparation-time NVIDIA evaluator result remains incomplete: eight of 11 results passed; three security-related scanner results were unavailable. Its static quality heuristic was 89.5/100, grade B. These are not live-agent benchmark results. See the submission record for the pinned evaluator, actual evidence, and remaining owner/license, security, evaluation, and signing steps. This replacement did not run ovphysx physics, qualify a GPU, or submit to NVIDIA's catalog. The historical checks below retain their original scope and dates.
 
 ## Completed locally
 
@@ -38,7 +46,7 @@ python -m pip check
 python tests/runtime_smoke.py
 ```
 
-See [the workflow](../.github/workflows/validate.yml), [public source provenance](SOURCES.md), and each skill's `evals/cases.json`. Store real run evidence separately from synthetic examples.
+See [the workflow](../.github/workflows/validate.yml), [public source provenance](SOURCES.md), and each skill's evaluation directory. Ovnewton uses `evals/cases.json`; ovphysx 0.2.0 uses `evals/evals.json`. Store real run evidence separately from synthetic examples.
 
 ## Ovphysx addition: 2026-10-14
 
@@ -52,7 +60,19 @@ The ovphysx CPU lifecycle example, GPU execution, rendering, robot controls, con
 
 ## ASD-STE100-style version
 
-Original record: 2026-10-13. The ovphysx addition below is dated 2026-10-14. This record lists completed checks and their limits. It does not certify the skills for NVIDIA's catalog. It is not a live-agent benchmark.
+Original record: 2026-10-13. The ovphysx addition is dated 2026-10-14. Its submission-format replacement is dated 2026-10-16. This record lists completed checks and their limits. It does not certify the skills for NVIDIA's catalog. It is not a live-agent benchmark.
+
+### Ovphysx submission-format replacement: 2026-10-16
+
+The repository replaced `physical-ai-ovphysx-selection` 0.1.0 with `ovphysx-selection` 0.2.0. Its path is `skills/ovphysx/ovphysx-selection/`. The 12 source files match the prepared submission package. The old installable folder was removed. Installation links and probe tests use the new name. The [submission materials](../submissions/ovphysx/README.md) include proposed catalog registration. They include an inactive validation-workflow template, PR drafts, and report alternatives.
+
+All four skills passed the repository validator. It checked 30 ovnewton cases and nine ovphysx CI cases. The original 23 ovphysx cases remain in the separate submission directory. Their converted NVIDIA-format dataset is also there. The repository validator accepts both dataset formats. It checks expected-script paths.
+
+All 24 helper tests passed on Windows with Python 3.13. Three tests check dataset compatibility and rejection of invalid or ambiguous data. The renamed skill passed the skill-creator validator.
+
+The preparation-time NVIDIA evaluator result remains incomplete. Eight of 11 results passed. Three security-related scanner results were unavailable. Its static quality heuristic was 89.5/100, grade B. These are not live-agent benchmark results. The submission record identifies the pinned evaluator and actual evidence. It lists the remaining owner/license, security, evaluation, and signing steps.
+
+This replacement did not run ovphysx physics. It did not qualify a GPU. It did not submit to NVIDIA's catalog. The historical checks below retain their original scope and dates.
 
 All three skill entrypoints passed the skill-creator metadata validator. The repository validator passed for all three skills. It checked portable metadata, resource links, and 30 evaluation-case definitions. Physics selection has 18 cases. Scene preparation and tuning each have six cases.
 
@@ -86,7 +106,7 @@ python -m pip check
 python tests/runtime_smoke.py
 ```
 
-See [the workflow](../.github/workflows/validate.yml), [public source provenance](SOURCES.md), and each skill's `evals/cases.json`. Keep real run evidence separate from synthetic examples.
+See [the workflow](../.github/workflows/validate.yml), [public source provenance](SOURCES.md), and each skill's evaluation directory. Ovnewton uses `evals/cases.json`. Ovphysx 0.2.0 uses `evals/evals.json`. Keep real run evidence separate from synthetic examples.
 
 ### Ovphysx addition: 2026-10-14
 

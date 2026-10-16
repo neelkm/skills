@@ -1,0 +1,282 @@
+{
+  "skill_name": "ovphysx-selection",
+  "evals": [
+    {
+      "id": "standalone-usd-robot",
+      "prompt": "Choose a physics stack for a new standalone Python service that runs USD industrial robots, exposes joint state and controls, and has NVIDIA GPUs. We want no Kit dependency. Compare the strongest alternatives; do not install yet.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Evaluate PhysX through ovphysx first. Separate engine, solver, device, and integration. Check robot/contact and deployment requirements. Compare relevant alternatives and retain open validation items. Respect selection-only scope.",
+      "assertions": [
+        "Evaluate PhysX through ovphysx first",
+        "Separate engine, solver, device, and integration",
+        "Check robot/contact and deployment requirements",
+        "Compare relevant alternatives and retain open validation items",
+        "Respect selection-only scope"
+      ]
+    },
+    {
+      "id": "cpu-first-run",
+      "prompt": "Set up a fresh ovphysx rigid-body test on supported Windows x86_64 with AVX. I have no GPU and want no rendering. Verify a bounded run.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Inspect the intended interpreter and package metadata. Use an isolated compatible environment. Set hard CPU mode before the first instance in a fresh process. Register schemas, populate physics, seal, attach, step, and read expected state. Check observable motion separately from initialization. Do not claim GPU or rendering validation.",
+      "assertions": [
+        "Inspect the intended interpreter and package metadata",
+        "Use an isolated compatible environment",
+        "Set hard CPU mode before the first instance in a fresh process",
+        "Register schemas, populate physics, seal, attach, step, and read expected state",
+        "Check observable motion separately from initialization",
+        "Do not claim GPU or rendering validation"
+      ]
+    },
+    {
+      "id": "native-sdk",
+      "prompt": "Embed ovphysx in a C++ application on Windows using a prebuilt SDK. What do I need to build and run the first sample?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Select matching ovphysx and ovstage archives and keep roots separate. Use both roots in CMAKE_PREFIX_PATH. Use packaged CMake runtime layout including plugins and schemas. Describe initialization, attachment, synchronization, and cleanup. Do not claim the build ran without execution evidence.",
+      "assertions": [
+        "Select matching ovphysx and ovstage archives and keep roots separate",
+        "Use both roots in CMAKE_PREFIX_PATH",
+        "Use packaged CMake runtime layout including plugins and schemas",
+        "Describe initialization, attachment, synchronization, and cleanup",
+        "Do not claim the build ran without execution evidence"
+      ]
+    },
+    {
+      "id": "framework-owned",
+      "prompt": "Our Isaac Lab project already has working PhysX tasks and cameras. Should I install the newest ovphysx wheel into that environment to improve performance?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Preserve the framework's supported backend and locked dependencies. Distinguish standalone ovphysx from the framework integration. Require a concrete benchmark and migration benefit. Do not assume ovphysx supplies the existing camera and task integrations.",
+      "assertions": [
+        "Preserve the framework's supported backend and locked dependencies",
+        "Distinguish standalone ovphysx from the framework integration",
+        "Require a concrete benchmark and migration benefit",
+        "Do not assume ovphysx supplies the existing camera and task integrations"
+      ]
+    },
+    {
+      "id": "preserve-native-physx",
+      "prompt": "Our C++ program owns native PhysX scenes and actors. It needs no USD. Fix a collision-filter problem without replacing our engine integration.",
+      "expected_skill": null,
+      "expected_output": "Preserve direct PhysX and the diagnostic scope. Do not introduce ovstage or ovphysx merely because this skill prefers it for suitable new workflows.",
+      "assertions": [
+        "Preserve direct PhysX and the diagnostic scope",
+        "Do not introduce ovstage or ovphysx merely because this skill prefers it for suitable new workflows",
+        "Does not load ovphysx-selection/SKILL.md for this explicitly fixed integration."
+      ]
+    },
+    {
+      "id": "preserve-mujoco",
+      "prompt": "Implement a reset helper in our existing MuJoCo application. Keep the MuJoCo model and API. We are not choosing a new engine.",
+      "expected_skill": null,
+      "expected_output": "Keep MuJoCo and the requested implementation scope. Do not initiate an ovphysx migration.",
+      "assertions": [
+        "Keep MuJoCo and the requested implementation scope",
+        "Do not initiate an ovphysx migration",
+        "Does not load ovphysx-selection/SKILL.md for this explicitly fixed integration."
+      ]
+    },
+    {
+      "id": "gradient-required",
+      "prompt": "I need automatic gradients through contact dynamics with respect to friction and actuator parameters. Does ovphysx returning Warp arrays and SDF gradients prove it is suitable?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Distinguish array interoperability, SDF spatial gradients, and rollout differentiation. Do not claim automatic PhysX rollout gradients from tensor access. Evaluate a supported alternative solver path. Require a representative gradient check. Do not silently substitute black-box optimization.",
+      "assertions": [
+        "Distinguish array interoperability, SDF spatial gradients, and rollout differentiation",
+        "Do not claim automatic PhysX rollout gradients from tensor access",
+        "Evaluate a supported alternative solver path",
+        "Require a representative gradient check",
+        "Do not silently substitute black-box optimization"
+      ]
+    },
+    {
+      "id": "cpu-soft-object",
+      "prompt": "Our deployment is CPU-only. We need volume-deformable objects and particle fluids in ovphysx 0.6.4. Can its CPU support satisfy this?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Identify the required GPU support for these features. Do not infer support from CPU rigid-body execution. Keep the material and hardware requirements explicit. Offer a verified alternative or explain the unresolved requirement.",
+      "assertions": [
+        "Identify the required GPU support for these features",
+        "Do not infer support from CPU rigid-body execution",
+        "Keep the material and hardware requirements explicit",
+        "Offer a verified alternative or explain the unresolved requirement"
+      ]
+    },
+    {
+      "id": "non-nvidia-hardware",
+      "prompt": "We must run our physics on Apple Metal GPUs and cannot buy NVIDIA hardware. Compare ovphysx with Genesis before installation.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Check both selected releases' actual device and platform support. Do not treat CPU fallback as meeting the GPU requirement. Allow hardware to override the ovphysx preference. Avoid unsupported competitor limitations or throughput claims.",
+      "assertions": [
+        "Check both selected releases' actual device and platform support",
+        "Do not treat CPU fallback as meeting the GPU requirement",
+        "Allow hardware to override the ovphysx preference",
+        "Avoid unsupported competitor limitations or throughput claims"
+      ]
+    },
+    {
+      "id": "native-instances",
+      "prompt": "My headless ovphysx scene has colliders under native USD scene-graph instances. I populated only PHYSICS because no renderer is running. Some colliders are missing.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Check the documented native-instance population caveat. Use ALL for this arbitrary instanced scene. Verify early schema registration, realized collider counts, sealing, and attach. Do not equate headless execution with safe physics-only population.",
+      "assertions": [
+        "Check the documented native-instance population caveat",
+        "Use ALL for this arbitrary instanced scene",
+        "Verify early schema registration, realized collider counts, sealing, and attach",
+        "Do not equate headless execution with safe physics-only population"
+      ]
+    },
+    {
+      "id": "output-feedback",
+      "prompt": "We publish physics output at ordinal 3 and the next control at ordinal 4, then call update_from_ovstage(2, 4). The simulation behaves strangely. Fix the schedule.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Identify that the input range includes physics-output ordinal 3. Drain only the new control ordinal 4. Retain sealing and consumer ordering. Explain application ownership of output publication.",
+      "assertions": [
+        "Identify that the input range includes physics-output ordinal 3",
+        "Drain only the new control ordinal 4",
+        "Retain sealing and consumer ordering",
+        "Explain application ownership of output publication"
+      ]
+    },
+    {
+      "id": "clone-before-step",
+      "prompt": "After warming up ovphysx, I want to clone 4096 more robot environments and render their new USD prims. Show the correct workflow.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Explain clone-before-warmup/step ordering. Describe reset and reattachment only if rebuilding is acceptable. Do not claim runtime clones create USD prims. Plan explicit render representation and verify observation identity coverage.",
+      "assertions": [
+        "Explain clone-before-warmup/step ordering",
+        "Describe reset and reattachment only if rebuilding is acceptable",
+        "Do not claim runtime clones create USD prims",
+        "Plan explicit render representation and verify observation identity coverage"
+      ]
+    },
+    {
+      "id": "cpu-clone-isolation",
+      "prompt": "My CPU-only clones have different env_ids but all use the same position. They push each other around. Why?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Explain ID isolation requires GPU dynamics and GPU broadphase. Use spatially disjoint CPU anchors or another verified isolation path. Check a one-environment disturbance test.",
+      "assertions": [
+        "Explain ID isolation requires GPU dynamics and GPU broadphase",
+        "Use spatially disjoint CPU anchors or another verified isolation path",
+        "Check a one-environment disturbance test"
+      ]
+    },
+    {
+      "id": "directgpu-empty-read",
+      "prompt": "I attached a DirectGPU scene, opened a read session before stepping, and got no groups. A write session opens but commit fails. Should I assume the scene is empty?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Check the first-step precondition. Complete cloning before initializing DirectGPU with a step. Re-read expected state and initialize episode/reset accounting. Distinguish unready data from empty selection or omitted attributes.",
+      "assertions": [
+        "Check the first-step precondition",
+        "Complete cloning before initializing DirectGPU with a step",
+        "Re-read expected state and initialize episode/reset accounting",
+        "Distinguish unready data from empty selection or omitted attributes"
+      ]
+    },
+    {
+      "id": "mixed-angular-units",
+      "prompt": "Our controller uses radians. Can I apply one degrees-to-radians conversion to ovphysx jointPosition, rigid angularVelocity, and the articulation Jacobian? We also have a prismatic joint.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Use the exact per-attribute data contract. Distinguish rotational joint degrees, rigid angular velocity rad/s, and inverse-dynamics angular radians. Keep prismatic values in scene length units. Map groups to identities and frames instead of relying on row order.",
+      "assertions": [
+        "Use the exact per-attribute data contract",
+        "Distinguish rotational joint degrees, rigid angular velocity rad/s, and inverse-dynamics angular radians",
+        "Keep prismatic values in scene length units",
+        "Map groups to identities and frames instead of relying on row order"
+      ]
+    },
+    {
+      "id": "async-buffer-lifetime",
+      "prompt": "I pass ovphysx read tensors to a custom PyTorch CUDA stream, close the read session immediately, and see intermittent bad observations. I assumed DLPack made everything safe.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Check each tensor's device and readiness event. Keep session-owned data valid until the consumer finishes or make an owned synchronized copy. Distinguish transport from synchronization and ownership. Avoid blanket zero-copy claims.",
+      "assertions": [
+        "Check each tensor's device and readiness event",
+        "Keep session-owned data valid until the consumer finishes or make an owned synchronized copy",
+        "Distinguish transport from synchronization and ownership",
+        "Avoid blanket zero-copy claims"
+      ]
+    },
+    {
+      "id": "partial-reset",
+      "prompt": "Reset only failed robot environments while the other environments continue. Can I just call reset_stage or teleport all articulation links?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Distinguish episode state reset from stage lifecycle reset. Restore selected roots, joint state, velocities, controls, and task/controller state through supported writes. Do not teleport non-root links as a joint reset. Verify unselected environments and the next transition.",
+      "assertions": [
+        "Distinguish episode state reset from stage lifecycle reset",
+        "Restore selected roots, joint state, velocities, controls, and task/controller state through supported writes",
+        "Do not teleport non-root links as a joint reset",
+        "Verify unselected environments and the next transition"
+      ]
+    },
+    {
+      "id": "independent-stages",
+      "prompt": "I want ten independent USD stages in ten ovphysx instances inside one process, each stepping on its own clock. Is the instance API enough?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Check the reviewed one-live-attachment process constraint. Explain multiple PhysicsScenes step together. Propose separate processes for independent stages/clocks. Do not infer independent simulation state from instance handles.",
+      "assertions": [
+        "Check the reviewed one-live-attachment process constraint",
+        "Explain multiple PhysicsScenes step together",
+        "Propose separate processes for independent stages/clocks",
+        "Do not infer independent simulation state from instance handles"
+      ]
+    },
+    {
+      "id": "contact-task-fit",
+      "prompt": "Choose ovphysx for close-clearance insertion using dynamic concave parts. We need bounded penetration and measured contact forces. How do we establish that it fits?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Investigate supported SDF or collision representations and exact device/contact pairs. Verify cooking, resolution, offsets, units, force semantics, and actuator limits. Test repeated insertions against stated tolerances. Do not claim geometric detail guarantees physical accuracy.",
+      "assertions": [
+        "Investigate supported SDF or collision representations and exact device/contact pairs",
+        "Verify cooking, resolution, offsets, units, force semantics, and actuator limits",
+        "Test repeated insertions against stated tolerances",
+        "Do not claim geometric detail guarantees physical accuracy"
+      ]
+    },
+    {
+      "id": "deformable-static-friction",
+      "prompt": "Our soft-object grasp requires static friction and CPU execution. Would surface or volume deformables in ovphysx 0.6.4 meet both requirements?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Identify both GPU-only deformable execution and the documented static-friction limitation. Do not silently replace static friction with higher dynamic friction. Preserve the physical requirements when comparing alternatives.",
+      "assertions": [
+        "Identify both GPU-only deformable execution and the documented static-friction limitation",
+        "Do not silently replace static friction with higher dynamic friction",
+        "Preserve the physical requirements when comparing alternatives"
+      ]
+    },
+    {
+      "id": "live-edits-versus-session-write",
+      "prompt": "The writability query accepts a tendon parameter. Can I assume changing that parameter in ovstage while DirectGPU simulation runs will always take effect?",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Separate session writability from stage-drain coverage. Check the documented tendon/DirectGPU caveat. Verify the actual edit path or identify the unmet live-edit requirement. Do not silently substitute stop/reload.",
+      "assertions": [
+        "Separate session writability from stage-drain coverage",
+        "Check the documented tendon/DirectGPU caveat",
+        "Verify the actual edit path or identify the unmet live-edit requirement",
+        "Do not silently substitute stop/reload"
+      ]
+    },
+    {
+      "id": "unsupported-superiority",
+      "prompt": "Write that ovphysx is ten times faster and more accurate than Newton, MuJoCo, Bullet, VSim, and Genesis for our robot. We have no robot model or measurements.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Do not invent comparative measurements. State requirements for a fair workload and fidelity comparison. Offer a provisional capability-based selection and discriminating experiment. Treat unavailable competitor details as unknown.",
+      "assertions": [
+        "Do not invent comparative measurements",
+        "State requirements for a fair workload and fidelity comparison",
+        "Offer a provisional capability-based selection and discriminating experiment",
+        "Treat unavailable competitor details as unknown"
+      ]
+    },
+    {
+      "id": "analysis-only",
+      "prompt": "Recommend a standalone USD robot stack with ovphysx as the main candidate. You cannot execute commands. Include how I can verify it.",
+      "expected_skill": "ovphysx-selection",
+      "expected_output": "Provide a reasoned engine/solver/integration recommendation. Give a bounded release-aware verification procedure. Label all runtime checks not run. Do not present metadata, code examples, or evaluation definitions as executed evidence.",
+      "assertions": [
+        "Provide a reasoned engine/solver/integration recommendation",
+        "Give a bounded release-aware verification procedure",
+        "Label all runtime checks not run",
+        "Do not present metadata, code examples, or evaluation definitions as executed evidence"
+      ]
+    }
+  ]
+}

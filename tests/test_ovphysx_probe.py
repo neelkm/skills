@@ -12,7 +12,7 @@ from unittest.mock import patch
 
 
 PATH = (Path(__file__).resolve().parents[1] / "skills" / "ovphysx" /
-        "physical-ai-ovphysx-selection" / "scripts" / "probe_environment.py")
+        "ovphysx-selection" / "scripts" / "probe_environment.py")
 SPEC = importlib.util.spec_from_file_location("ovphysx_metadata_probe", PATH)
 probe = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(probe)

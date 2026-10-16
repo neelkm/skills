@@ -60,6 +60,8 @@ The current source snapshot resolves a packaging difference in older pages: USD 
 
 ## Packaging and installation
 
+Ovphysx skill version 0.2.0 was adapted on 2026-10-16 to the public [ovnewton-usage package](https://github.com/NVIDIA/skills/tree/main/skills/ovnewton-usage), [catalog PR template](https://github.com/NVIDIA/skills/blob/main/.github/PULL_REQUEST_TEMPLATE.md), and [NVIDIA evaluation dataset format](https://docs.nvidia.com/skills/skillevaluator/eval-datasets). Its runtime documentation baseline remains the ovphysx 0.6.4 snapshot above. The [submission materials](../submissions/ovphysx/README.md) preserve the validation evidence and proposed onboarding files. The personal repository grouping differs from the proposed flat product-repository path; the installable skill itself is the same package.
+
 - [Agent Skills specification](https://agentskills.io/specification)
 - [Agent Skills host integration](https://agentskills.io/client-implementation/adding-skills-support)
 - [Codex local skills](https://learn.chatgpt.com/docs/build-skills)

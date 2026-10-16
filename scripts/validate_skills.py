@@ -17,8 +17,57 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
     "ovnewton": {"physical-ai-physics-selection", "ovnewton-prepare-scene", "ovnewton-tune-physics"},
-    "ovphysx": {"physical-ai-ovphysx-selection"},
+    "ovphysx": {"ovphysx-selection"},
 }
+
+
+def check_evaluations(directory, name):
+    paths = [directory / "evals" / filename for filename in ("evals.json", "cases.json")]
+    present = [path for path in paths if path.is_file()]
+    if len(present) != 1:
+        raise ValueError("expected exactly one primary evaluation dataset")
+    dataset = json.loads(present[0].read_text(encoding="utf-8"))
+    if not isinstance(dataset, dict):
+        raise ValueError("invalid evaluation dataset")
+    nvidia_format = present[0].name == "evals.json"
+    if nvidia_format:
+        if dataset.get("skill_name") != name:
+            raise ValueError("evaluation skill name mismatch")
+        cases = dataset.get("evals")
+        criteria_key = "assertions"
+    else:
+        if dataset.get("schema_version") != 1 or dataset.get("skill") != name:
+            raise ValueError("invalid evaluation dataset")
+        cases = dataset.get("cases")
+        criteria_key = "expected"
+    if not isinstance(cases, list) or not cases:
+        raise ValueError("empty evaluation dataset")
+    seen = set()
+    for case in cases:
+        if not isinstance(case, dict):
+            raise ValueError("invalid evaluation case")
+        if not isinstance(case.get("id"), str) or not case["id"] or case["id"] in seen:
+            raise ValueError("invalid or duplicate evaluation id")
+        seen.add(case["id"])
+        if not isinstance(case.get("prompt"), str) or not case["prompt"].strip():
+            raise ValueError("missing evaluation prompt")
+        criteria = case.get(criteria_key)
+        if not isinstance(criteria, list) or not criteria or any(
+                not isinstance(item, str) or not item.strip() for item in criteria):
+            raise ValueError("missing behavioral acceptance criteria")
+        if nvidia_format:
+            if not isinstance(case.get("expected_output"), str) or not case["expected_output"].strip():
+                raise ValueError("missing expected output")
+            if "expected_skill" in case and case["expected_skill"] not in (None, name):
+                raise ValueError("unexpected routing target")
+            if "expected_script" in case:
+                script = case["expected_script"]
+                if not isinstance(script, str) or not script.strip():
+                    raise ValueError("invalid expected script")
+                resolved = (directory / script).resolve()
+                if not resolved.is_relative_to((directory / "scripts").resolve()) or not resolved.is_file():
+                    raise ValueError("expected script must exist within this skill's scripts directory")
+    return len(cases)
 
 
 def check_skill(directory):
@@ -51,20 +100,7 @@ def check_skill(directory):
                 raise ValueError(f"broken or nonportable local resource link in {doc.name}: {target}")
         if "[TODO:" in content:
             raise ValueError(f"unfinished scaffold in {doc.name}")
-    cases = json.loads((directory / "evals" / "cases.json").read_text(encoding="utf-8"))
-    if cases.get("schema_version") != 1 or cases.get("skill") != name or len(cases.get("cases", [])) < 1:
-        raise ValueError("invalid evaluation dataset")
-    seen = set()
-    for case in cases["cases"]:
-        if not isinstance(case.get("id"), str) or not case["id"] or case["id"] in seen:
-            raise ValueError("invalid or duplicate evaluation id")
-        seen.add(case["id"])
-        if not isinstance(case.get("prompt"), str) or not case["prompt"].strip():
-            raise ValueError("missing evaluation prompt")
-        if not isinstance(case.get("expected"), list) or not case["expected"] or any(
-                not isinstance(x, str) or not x.strip() for x in case["expected"]):
-            raise ValueError("missing behavioral acceptance criteria")
-    return len(cases["cases"])
+    return check_evaluations(directory, name)
 
 
 def main():
