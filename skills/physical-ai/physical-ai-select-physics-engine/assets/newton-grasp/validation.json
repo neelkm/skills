@@ -1,0 +1,8 @@
+{
+  "kind": "grasp", "duration_s": 3.5, "samples": 875,
+  "height_column": "block_height_m", "relative_column": "relative_height_m",
+  "minimum_lift_m": 0.12, "maximum_hold_slip_m": 0.01,
+  "require_release": true, "minimum_release_drop_m": 0.08,
+  "maximum_command_force_N": 12, "maximum_control_lift_m": 0.005,
+  "maximum_penetration_m": 0.001, "maximum_floor_force_N": 0.000001
+}

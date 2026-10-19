@@ -1,0 +1,6 @@
+{
+  "kind": "spring", "duration_s": 1.0, "samples": 100,
+  "maximum_loss_ratio": 0.01, "maximum_stiffness_relative_error": 0.01,
+  "minimum_gradient_magnitude": 0.00000001,
+  "maximum_gradient_relative_error": 0.02, "maximum_analytic_error_m": 0.006
+}

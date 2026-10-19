@@ -1,0 +1,376 @@
+{
+  "skill_name": "physical-ai-select-physics-engine",
+  "evals": [
+    {
+      "id": "physical-ai-select-physics-engine-native-windows-usd",
+      "prompt": "Choose Newton or ovphysx for a Windows x86_64 C++ robot service. We need a supported standalone C API, have validated PhysX USD assets, and do not need rollout gradients or Kit. Recommend a path; do not install.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Provisionally favor PhysX through ovphysx subject to the required physics, native SDK, AVX, and version checks. Link the PhysX repository's ovphysx subdirectory and route to basic-workflow plus ovstage project-setup-c. Distinguish direct Newton Windows support from standalone ovnewton platform support and do not invent a native Newton API. Respect selection-only scope and qualify pre-release API and binary distribution terms.",
+      "assertions": [
+        "Provisionally favor PhysX through ovphysx subject to the required physics, native SDK, AVX, and version checks.",
+        "Link the PhysX repository's ovphysx subdirectory and route to basic-workflow plus ovstage project-setup-c.",
+        "Distinguish direct Newton Windows support from standalone ovnewton platform support and do not invent a native Newton API.",
+        "Respect selection-only scope and qualify pre-release API and binary distribution terms."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-custom-warp-newton",
+      "prompt": "We are building new rigid-robot experiments in Python on supported Linux and need to modify the Warp dynamics implementation. We have URDF assets, no shared-stage requirement, and no required gradients. Compare Newton and ovphysx; do not install.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Favor a feasible direct Newton path for the specific custom-dynamics requirement, subject to solver and importer validation. Explain the difference between modifying the solver and processing ovphysx Warp output. Do not require ovnewton, ovstage, rendering, or a framework merely for URDF/GPU use. Name the remaining task validation and closest alternative tradeoff without invented speed claims.",
+      "assertions": [
+        "Favor a feasible direct Newton path for the specific custom-dynamics requirement, subject to solver and importer validation.",
+        "Explain the difference between modifying the solver and processing ovphysx Warp output.",
+        "Do not require ovnewton, ovstage, rendering, or a framework merely for URDF/GPU use.",
+        "Name the remaining task validation and closest alternative tradeoff without invented speed claims."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-gpu-is-not-decisive",
+      "prompt": "We need thousands of GPU rigid-robot learning environments. No assets, contact details, control requirements, or existing framework are specified. Is Newton automatically the correct choice over ovphysx?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Explain that both candidate families have relevant GPU/batching paths. Ask or infer only decision-changing requirements such as contacts, controls, resets, assets, and framework ownership. Use a conditional comparison or provisional choice and a discriminating task test, not an automatic engine preference.",
+      "assertions": [
+        "Explain that both candidate families have relevant GPU/batching paths.",
+        "Ask or infer only decision-changing requirements such as contacts, controls, resets, assets, and framework ownership.",
+        "Use a conditional comparison or provisional choice and a discriminating task test, not an automatic engine preference."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-usd-no-bridge",
+      "prompt": "We chose Newton for a standalone headless URDF and USD experiment. A viewer might be useful later. Is ovnewton or ovstage required?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Preserve Newton and explain direct importer/viewer routes. Base bridge adoption on a supported live shared-stage need, not file format or viewing alone. Point to direct Newton setup and solver documentation.",
+      "assertions": [
+        "Preserve Newton and explain direct importer/viewer routes.",
+        "Base bridge adoption on a supported live shared-stage need, not file format or viewing alone.",
+        "Point to direct Newton setup and solver documentation."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-newton-shared-stage",
+      "prompt": "Our supported Linux application already owns an ovstage compatible with ovnewton 0.2.0. It contains supported rigid bodies and revolute joints. We selected Newton and need live drive edits and published motion. Give the implementation handoff.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Preserve Newton and route to using-ovnewton, plus relevant ovstage population/lifecycle guidance. Reuse the existing stage and actual sealed ordinal. Keep application ownership of solver, controls, collision handling, stepping, and publication. Check field coverage and state-update ownership; do not blindly reapply stale authored state every substep.",
+      "assertions": [
+        "Preserve Newton and route to using-ovnewton, plus relevant ovstage population/lifecycle guidance.",
+        "Reuse the existing stage and actual sealed ordinal.",
+        "Keep application ownership of solver, controls, collision handling, stepping, and publication.",
+        "Check field coverage and state-update ownership; do not blindly reapply stale authored state every substep."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-bridge-volumes-cables",
+      "prompt": "We require cable manipulation and volume-deformable objects imported and synchronized through ovnewton 0.2.0. Does Newton's deformable support prove this path works?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Identify the ovnewton 0.2.0 cable/volume-deformable limitations separately from direct Newton. Do not remove the shared-stage or material requirement or claim the bridge meets it. Treat direct Newton and ovphysx as alternatives requiring their own exact feature, coupling, and integration checks.",
+      "assertions": [
+        "Identify the ovnewton 0.2.0 cable/volume-deformable limitations separately from direct Newton.",
+        "Do not remove the shared-stage or material requirement or claim the bridge meets it.",
+        "Treat direct Newton and ovphysx as alternatives requiring their own exact feature, coupling, and integration checks."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-gradient-mujoco",
+      "prompt": "We need automatic gradients through contact dynamics with respect to friction and actuator parameters. Should we use Newton MuJoCo Warp or ovphysx because both expose Warp data?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Reject the inference that Warp arrays or Newton branding establish the requested gradients. Check the selected Newton solver and every required operation/parameter; the reviewed MuJoCo backend is not marked differentiable. Do not claim supported PhysX rollout differentiation from DLPack, SDF gradients, or Warp output. Require a representative gradient check and keep the answer unresolved if neither complete path is verified.",
+      "assertions": [
+        "Reject the inference that Warp arrays or Newton branding establish the requested gradients.",
+        "Check the selected Newton solver and every required operation/parameter; the reviewed MuJoCo backend is not marked differentiable.",
+        "Do not claim supported PhysX rollout differentiation from DLPack, SDF gradients, or Warp output.",
+        "Require a representative gradient check and keep the answer unresolved if neither complete path is verified."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-cpu-deformables",
+      "prompt": "We have no GPU and cannot change hardware. We need volume-deformable manipulation with contact and reset. Ovphysx says it supports CPU physics. Can you select it?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Distinguish CPU rigid-body support from deformable device requirements. Do not recommend ovphysx as a complete fit based solely on generic CPU support. Investigate the exact direct Newton solver/material/coupling/reset path or another candidate without dropping CPU-only constraints. Keep ovnewton bridge volume-deformable limitations separate.",
+      "assertions": [
+        "Distinguish CPU rigid-body support from deformable device requirements.",
+        "Do not recommend ovphysx as a complete fit based solely on generic CPU support.",
+        "Investigate the exact direct Newton solver/material/coupling/reset path or another candidate without dropping CPU-only constraints.",
+        "Keep ovnewton bridge volume-deformable limitations separate."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-dependency-conflict",
+      "prompt": "Can I put the reviewed ovnewton 0.2.0 and current ovphysx 0.7 source setup into one Python environment and share an ovstage so I can switch engines?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Identify ovnewton's >=0.2.0.377349,<0.3 range and the reviewed ovphysx exact 0.3.0.1791986420 pin. State that these reviewed dependency sets do not resolve together as written and verify the actual selected artifacts. Propose isolated environments/processes for comparison or a verified compatible release set. Do not promise interchangeable state or coupled physics merely because both integrations use ovstage.",
+      "assertions": [
+        "Identify ovnewton's >=0.2.0.377349,<0.3 range and the reviewed ovphysx exact 0.3.0.1791986420 pin.",
+        "State that these reviewed dependency sets do not resolve together as written and verify the actual selected artifacts.",
+        "Propose isolated environments/processes for comparison or a verified compatible release set.",
+        "Do not promise interchangeable state or coupled physics merely because both integrations use ovstage."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-ovphysx-api-generation",
+      "prompt": "Our script uses ovphysx 0.6.4 read/write contexts and bundled schema helpers. We plan to adopt 0.7. What should the setup handoff check before we change code?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Route to the official 0.6-to-0.7 migration guide and matching packaged skills/examples. Identify external PhysX schema installation/early registration, task completion for lifecycle calls, and synchronous read/write naming changes. Check write commit completion, output lifetime, native ABI rebuilds where relevant, and exact ovstage dependency. Do not present unchanged 0.6 code as a verified 0.7 example.",
+      "assertions": [
+        "Route to the official 0.6-to-0.7 migration guide and matching packaged skills/examples.",
+        "Identify external PhysX schema installation/early registration, task completion for lifecycle calls, and synchronous read/write naming changes.",
+        "Check write commit completion, output lifetime, native ABI rebuilds where relevant, and exact ovstage dependency.",
+        "Do not present unchanged 0.6 code as a verified 0.7 example."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-directgpu-kinematic",
+      "prompt": "Our ovphysx 0.7 DirectGPU application requires true kinematic-target motion and detailed contact event payloads. Can we keep DirectGPU because it is fastest?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Identify the reviewed DirectGPU limitations for kinematic-target writes and detailed contact events. Do not substitute teleportation or net force for the required semantics. Investigate GPU dynamics with CPU readback or another verified path and measure the performance tradeoff. Reject the unsupported absolute fastest claim.",
+      "assertions": [
+        "Identify the reviewed DirectGPU limitations for kinematic-target writes and detailed contact events.",
+        "Do not substitute teleportation or net force for the required semantics.",
+        "Investigate GPU dynamics with CPU readback or another verified path and measure the performance tradeoff.",
+        "Reject the unsupported absolute fastest claim."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-cpu-clone-isolation",
+      "prompt": "We need co-located independent ovphysx environments on CPU. Can clone env_ids isolate their collisions? Give the next implementation guidance.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Explain that the documented env-id isolation requires GPU dynamics and GPU broadphase and does not isolate CPU clones. Suggest a supported CPU isolation strategy or a revised device/path with explicit tradeoffs. Route to clone-environments and clone before warmup or the first step. Distinguish internal physics clones from USD/stage copies.",
+      "assertions": [
+        "Explain that the documented env-id isolation requires GPU dynamics and GPU broadphase and does not isolate CPU clones.",
+        "Suggest a supported CPU isolation strategy or a revised device/path with explicit tradeoffs.",
+        "Route to clone-environments and clone before warmup or the first step.",
+        "Distinguish internal physics clones from USD/stage copies."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-ovstage-first-setup",
+      "prompt": "We selected ovphysx for a new standalone Python USD application. Give the exact repository and skills for ovstage setup, loading USD, control, observations, and tuning. Do not install.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Link the canonical PhysX/ovphysx and ovstage repositories. Route to project-setup-python, loading-usd, application-flow, basic-workflow, ovphysx-session-write, and ovphysx-output-read as needed. Name official ovphysx tuning guides as documents; do not invent an ovphysx tuning skill. Explain matching installed versions and whether referenced skills are locally available.",
+      "assertions": [
+        "Link the canonical PhysX/ovphysx and ovstage repositories.",
+        "Route to project-setup-python, loading-usd, application-flow, basic-workflow, ovphysx-session-write, and ovphysx-output-read as needed.",
+        "Name official ovphysx tuning guides as documents; do not invent an ovphysx tuning skill.",
+        "Explain matching installed versions and whether referenced skills are locally available."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-tune-newton-slip",
+      "prompt": "We selected Newton with ovnewton and see grasp slip. Give the next scene-preparation and tuning handoff before changing parameters.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Preserve the engine and route to ovnewton-prepare-scene and ovnewton-tune-physics with official fallback guides. Check imported masses, material/contact geometry, effort limits, control identity, and stage synchronization before solver tuning. Specify baseline slip/force/penetration metrics and bounded experiments; do not supply a universal friction preset. Identify author-maintained skills without claiming NVIDIA catalog approval.",
+      "assertions": [
+        "Preserve the engine and route to ovnewton-prepare-scene and ovnewton-tune-physics with official fallback guides.",
+        "Check imported masses, material/contact geometry, effort limits, control identity, and stage synchronization before solver tuning.",
+        "Specify baseline slip/force/penetration metrics and bounded experiments; do not supply a universal friction preset.",
+        "Identify author-maintained skills without claiming NVIDIA catalog approval."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-tune-physx-instability",
+      "prompt": "Our ovphysx articulated gripper jitters and the simulation is slow. We want a diagnosis and tuning plan, not an engine migration.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Preserve ovphysx and route to the relevant authoring/control/readback skills and articulation, collision, gripper, and performance guides. Check model, drives, timestep, collision geometry, and synchronization before changing solver settings. Measure physics, transfer, reset, publication, and rendering costs separately where relevant. Do not claim improvement without executed evidence or copy example gripper settings as universal values.",
+      "assertions": [
+        "Preserve ovphysx and route to the relevant authoring/control/readback skills and articulation, collision, gripper, and performance guides.",
+        "Check model, drives, timestep, collision geometry, and synchronization before changing solver settings.",
+        "Measure physics, transfer, reset, publication, and rendering costs separately where relevant.",
+        "Do not claim improvement without executed evidence or copy example gripper settings as universal values."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-fair-performance",
+      "prompt": "Write a recommendation that Newton plus ovnewton is at least 10 times faster and more accurate than ovphysx for our insertion robot. We have supplied no scene or measurements.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Do not invent the requested comparative result. Offer a capability-based provisional decision and a representative insertion benchmark. Match physical task and acceptance limits, record versions/hardware/control/contact conditions, synchronize GPU timings, and separate bridge/render costs. Distinguish startup from steady-state and accuracy metrics from speed.",
+      "assertions": [
+        "Do not invent the requested comparative result.",
+        "Offer a capability-based provisional decision and a representative insertion benchmark.",
+        "Match physical task and acceptance limits, record versions/hardware/control/contact conditions, synchronize GPU timings, and separate bridge/render costs.",
+        "Distinguish startup from steady-state and accuracy metrics from speed."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-no-runtime",
+      "prompt": "Choose a provisional engine for supported Linux rigid-body manipulation and describe the verification. You have documentation access but no simulator, GPU, assets, or shell.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Use documented capabilities and explicit unknowns without inventing a runtime result. Give a proportional provisional recommendation or a specific discriminating question/test. State that metadata, simulation, GPU, contact accuracy, and performance checks were not run. Provide the correct repository and next skill/document.",
+      "assertions": [
+        "Use documented capabilities and explicit unknowns without inventing a runtime result.",
+        "Give a proportional provisional recommendation or a specific discriminating question/test.",
+        "State that metadata, simulation, GPU, contact accuracy, and performance checks were not run.",
+        "Provide the correct repository and next skill/document."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-framework-owned",
+      "prompt": "Our Isaac Lab project uses a validated PhysX backend and pinned dependencies. We are evaluating Newton for a future feature. Should we install the latest standalone ovphysx and ovnewton in this environment?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Preserve the existing framework environment and use its supported backend/version contract. Evaluate the missing feature and migration cost before changing the engine. Keep standalone comparisons isolated and do not treat standalone libraries as framework upgrades. Do not infer sensors/training integration from engine support.",
+      "assertions": [
+        "Preserve the existing framework environment and use its supported backend/version contract.",
+        "Evaluate the missing feature and migration cost before changing the engine.",
+        "Keep standalone comparisons isolated and do not treat standalone libraries as framework upgrades.",
+        "Do not infer sensors/training integration from engine support."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-unsupported-hardware",
+      "prompt": "Our simulator must use JAX and TPU automatic differentiation. We cannot move to NVIDIA GPUs. Pick Newton or ovphysx.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Do not force a CUDA-oriented or CPU fallback path that fails the actual accelerator/gradient requirement. State that neither reviewed complete path is established as satisfying the requirements. Investigate an appropriate documented alternative such as MJX-JAX, retaining feature and gradient checks. Do not silently change the hardware or differentiation requirement.",
+      "assertions": [
+        "Do not force a CUDA-oriented or CPU fallback path that fails the actual accelerator/gradient requirement.",
+        "State that neither reviewed complete path is established as satisfying the requirements.",
+        "Investigate an appropriate documented alternative such as MJX-JAX, retaining feature and gradient checks.",
+        "Do not silently change the hardware or differentiation requirement."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-runtime-false-positive",
+      "prompt": "Our setup prints imported successfully and an ovphysx query returns zero groups. Can we report a passed physics validation?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Distinguish import/metadata/attachment from runtime and task validation. Check population, schemas, query identity/scope, device/first-step readiness, and completion. Require expected nonempty finite changing state and a representative control/contact check. Do not call an empty result a passing simulation.",
+      "assertions": [
+        "Distinguish import/metadata/attachment from runtime and task validation.",
+        "Check population, schemas, query identity/scope, device/first-step readiness, and completion.",
+        "Require expected nonempty finite changing state and a representative control/contact check.",
+        "Do not call an empty result a passing simulation."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-handoff-preference",
+      "prompt": "The neutral comparison selected ovphysx for our native USD service. The older Newton-first skill says to prefer Newton, while the PhysX-first skill says prefer ovphysx. What governs the implementation handoff?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Preserve the completed requirements-based decision and explicit user intent. Treat the older skills' starting preferences as context rather than evidence that overrides a selected path. Use implementation skills and matching runtime docs; reopen selection only for a demonstrated incompatibility or user request.",
+      "assertions": [
+        "Preserve the completed requirements-based decision and explicit user intent.",
+        "Treat the older skills' starting preferences as context rather than evidence that overrides a selected path.",
+        "Use implementation skills and matching runtime docs; reopen selection only for a demonstrated incompatibility or user request."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-missing-docs",
+      "prompt": "The exact ovphysx device support for our specialized joint is not documented in the files available to you. Can you mark it unsupported and declare Newton the winner?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Classify missing evidence as unknown rather than unsupported. Seek the selected release's source/docs/sample or a representative check before a firm capability claim. Apply the same evidence standard to Newton and retain the unknown in the recommendation.",
+      "assertions": [
+        "Classify missing evidence as unknown rather than unsupported.",
+        "Seek the selected release's source/docs/sample or a representative check before a firm capability claim.",
+        "Apply the same evidence standard to Newton and retain the unknown in the recommendation."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-keep-mujoco",
+      "prompt": "Implement a reset helper in our existing native MuJoCo application. Keep the API and simulator; no comparison or migration is requested.",
+      "expected_skill": null,
+      "expected_output": "Do not activate this selection skill. Preserve MuJoCo and the narrow implementation scope.",
+      "assertions": [
+        "Do not activate this selection skill.",
+        "Preserve MuJoCo and the narrow implementation scope."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-keep-physx-fix",
+      "prompt": "Fix a typo in an already working ovphysx sample's log message. Do not change physics or dependencies.",
+      "expected_skill": null,
+      "expected_output": "Do not activate this selection skill. Make only the requested text correction without setup, engine comparison, or migration.",
+      "assertions": [
+        "Do not activate this selection skill.",
+        "Make only the requested text correction without setup, engine comparison, or migration."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-usd-camera-only",
+      "prompt": "Change the camera focal length and light color in our USD scene. No physics work is requested.",
+      "expected_skill": null,
+      "expected_output": "Do not activate this physics-selection skill. Preserve the authoring-only scope.",
+      "assertions": [
+        "Do not activate this physics-selection skill.",
+        "Preserve the authoring-only scope."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-keep-bullet",
+      "prompt": "Diagnose one collision-filter setting in our deployed PyBullet prototype. It meets the task requirements and we have no migration budget.",
+      "expected_skill": null,
+      "expected_output": "Do not activate this selection skill. Preserve PyBullet and diagnose the requested setting without promoting another engine.",
+      "assertions": [
+        "Do not activate this selection skill.",
+        "Preserve PyBullet and diagnose the requested setting without promoting another engine."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-small-cpu-drop-starter",
+      "prompt": "Build a tiny Windows CPU demo that drops a USD box onto a floor and publishes motion into a shared ovstage. Choose the engine and run it. This is a new standalone project.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Choose a supported complete path for the shared-stage and platform requirements, with version evidence; the tested ovphysx CPU path is a suitable option. Use only the relevant setup and starter guidance; copy the matching starter and its dependencies into the project rather than writing outputs into the skill. Run actual physics and stage readback if tools permit, or clearly state the runtime blocker; a saved-output check alone does not prove execution. Do not claim a viewer, driverless operation, or arbitrary scene accuracy from the box fixture.",
+      "assertions": [
+        "Choose a supported complete path for the shared-stage and platform requirements, with version evidence; the tested ovphysx CPU path is a suitable option.",
+        "Use only the relevant setup and starter guidance; copy the matching starter and its dependencies into the project rather than writing outputs into the skill.",
+        "Run actual physics and stage readback if tools permit, or clearly state the runtime blocker; a saved-output check alone does not prove execution.",
+        "Do not claim a viewer, driverless operation, or arbitrary scene accuracy from the box fixture."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-small-gradient-starter",
+      "prompt": "Make and run a CPU spring-stiffness fitting example with automatic gradients through the simulator. Pick Newton or ovphysx. Keep this small.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Select a documented and tested differentiable solver path such as direct Newton SemiImplicit without adding ovstage unnecessarily. Use the tested starter or installed matching example and the finalized spring_stiffness parameter field; do not infer field names from builder arguments. Run automatic differentiation, check it against finite differences, and report fit loss separately from analytic trajectory error. Read only relevant references and preserve a different existing lockfile rather than forcing reproduction pins into it.",
+      "assertions": [
+        "Select a documented and tested differentiable solver path such as direct Newton SemiImplicit without adding ovstage unnecessarily.",
+        "Use the tested starter or installed matching example and the finalized spring_stiffness parameter field; do not infer field names from builder arguments.",
+        "Run automatic differentiation, check it against finite differences, and report fit loss separately from analytic trajectory error.",
+        "Read only relevant references and preserve a different existing lockfile rather than forcing reproduction pins into it."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-grasp-missing-contact-evidence",
+      "prompt": "The generated gripper lifted the block, showed 12 contacts, and passed its height check. Its CSV has no pair-specific forces or penetration. Can I claim a validated bilateral grasp with bounded penetration?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Do not infer bilateral force or penetration from height and a global contact count. Report task behavior separately from missing physical evidence and require correctly identified per-pair contact and penetration telemetry for those claims. The reusable checker must reject missing required contact evidence; it must not fill missing forces with zero. Describe release and a zero-friction control as useful distinct checks, not substitutes for contact measurement.",
+      "assertions": [
+        "Do not infer bilateral force or penetration from height and a global contact count.",
+        "Report task behavior separately from missing physical evidence and require correctly identified per-pair contact and penetration telemetry for those claims.",
+        "The reusable checker must reject missing required contact evidence; it must not fill missing forces with zero.",
+        "Describe release and a zero-friction control as useful distinct checks, not substitutes for contact measurement."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-starter-preserve-ovphysx",
+      "prompt": "We already selected ovphysx and have a compatible shared stage. Build a simple gripper demonstration. Your skill has a Newton grasp starter; use whatever is appropriate.",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Preserve ovphysx and the existing stage; starter availability is not a reason to switch engines or install Newton. Route to the matching ovphysx authoring/control/readback skills and gripper tuning guidance. Adapt validation metrics to the actual mechanism rather than copying the Newton toy settings or contact API. State checks actually run and remaining measurements.",
+      "assertions": [
+        "Preserve ovphysx and the existing stage; starter availability is not a reason to switch engines or install Newton.",
+        "Route to the matching ovphysx authoring/control/readback skills and gripper tuning guidance.",
+        "Adapt validation metrics to the actual mechanism rather than copying the Newton toy settings or contact API.",
+        "State checks actually run and remaining measurements."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-limits-and-negative-control",
+      "prompt": "My grasp did not lift with zero friction, but it held with friction. I also doubled the block mass in the zero-friction run. May I count this as a clean negative control and relax all limits to get a passing report?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "Distinguish the expected failure to lift from nominal task failure. Identify the mass change as a confound and restore all other settings for the intended friction-only comparison. Preserve measured failures; acceptance limits must follow physical task requirements rather than a desired passing result. Do not substitute contact counts or command forces for measured pair-specific normal forces.",
+      "assertions": [
+        "Distinguish the expected failure to lift from nominal task failure.",
+        "Identify the mass change as a confound and restore all other settings for the intended friction-only comparison.",
+        "Preserve measured failures; acceptance limits must follow physical task requirements rather than a desired passing result.",
+        "Do not substitute contact counts or command forces for measured pair-specific normal forces."
+      ]
+    },
+    {
+      "id": "physical-ai-select-physics-engine-local-evidence-not-uplift",
+      "prompt": "The skill has three successful paired CPU examples and new starter scripts. Can I say the updated skill makes agents faster, picks the universally best engine, and is NVIDIA verified?",
+      "expected_skill": "physical-ai-select-physics-engine",
+      "expected_output": "State that the original six builds all ran, with no clear observed selection or build-effort advantage. Distinguish the 0.1.0 paired study from the 0.2.0 direct starter/checker validation; the revised skill has not had a new paired agent study. Do not infer statistical uplift, engine superiority, NVIDIA verification, GPU support, or real robot validity from these local tests. Point to local evidence and the official publication/evaluation route without fabricating scores or signatures.",
+      "assertions": [
+        "State that the original six builds all ran, with no clear observed selection or build-effort advantage.",
+        "Distinguish the 0.1.0 paired study from the 0.2.0 direct starter/checker validation; the revised skill has not had a new paired agent study.",
+        "Do not infer statistical uplift, engine superiority, NVIDIA verification, GPU support, or real robot validity from these local tests.",
+        "Point to local evidence and the official publication/evaluation route without fabricating scores or signatures."
+      ]
+    }
+  ]
+}

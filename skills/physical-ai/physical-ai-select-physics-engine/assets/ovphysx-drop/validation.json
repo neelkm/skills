@@ -1,0 +1,8 @@
+{
+  "kind": "drop", "duration_s": 2.0, "samples": 961,
+  "initial_center_m": 1.0, "rest_center_m": 0.1,
+  "minimum_fall_m": 0.5, "position_tolerance_m": 0.01,
+  "maximum_penetration_m": 0.01, "tail_window_s": 0.25,
+  "maximum_tail_span_m": 0.001, "maximum_tail_speed_m_s": 0.01,
+  "stage_tolerance_m": 0.00001
+}

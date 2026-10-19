@@ -1,0 +1,610 @@
+{
+  "date": "2026-10-19",
+  "baseline_study": {
+    "skill_version": "0.1.0",
+    "design": "Three prompts, one fresh agent per with/without condition, Windows CPU, explicit skill loading.",
+    "actual_builds": 6,
+    "task_passes": 6,
+    "conclusion": "No clear observed engine-selection or build-effort advantage; no statistical uplift or timing inference.",
+    "trials": [
+      {
+        "case": "drop",
+        "arm": "without",
+        "engine": "ovphysx 0.7.0.74035321 (NVIDIA PhysX)",
+        "solver": "TGS, CPU dynamics; scene explicitly authors physxScene:solverType=TGS and MBP broadphase",
+        "outcome": {
+          "status": "actual_simulation_passed",
+          "required_physical_behavior_passed": true,
+          "exit_code": 0,
+          "checks": {
+            "cpu_output": true,
+            "two_seconds_961_samples": true,
+            "fell": true,
+            "floor_contact_height": true,
+            "no_floor_tunneling": true,
+            "settled_last_half_second": true,
+            "shared_stage_updated_each_step": true,
+            "shared_stage_final_pose_matches": true
+          },
+          "initial_z_m": 1.0,
+          "final_z_m": 0.09999997913837433,
+          "minimum_z_m": 0.09999988228082657,
+          "max_tail_speed_m_s": 0.0,
+          "simulated_seconds": 2.0,
+          "samples": 961,
+          "all_passed": true
+        },
+        "limitations": [
+          "No viewer is installed or tested. Shared ovstage is an in-process object; --hold retains it, but does not create a remote viewer service. Import DropDemo and attach a compatible renderer to demo.stage in the same process.",
+          "The installed Warp wheel initializes CUDA and enumerates GPUs even with PhysX CPU mode. Actual output tensors and helper kernels were confirmed on CPU. Driver-free operation was not tested.",
+          "The first 1/120 s run produced metrics but its command session remained active during subsequent work; the final corrected run exited cleanly.",
+          "No network download failures occurred. Windows sandbox filesystem access failures occurred and are recorded.",
+          "The TGS attribute is explicitly authored; no independent runtime solver introspection was performed.",
+          "The sandbox denied the final process-enumeration cleanup attempt. Earlier active command sessions could not be confirmed stopped. The final successful run itself exited 0."
+        ]
+      },
+      {
+        "case": "drop",
+        "arm": "with",
+        "engine": "PhysX via ovphysx 0.7.0.74035321",
+        "solver": "TGS; CPU dynamics; MBP CPU broadphase",
+        "outcome": {
+          "actual_simulation": true,
+          "checks": {
+            "duration_two_seconds": true,
+            "initial_height_1m": true,
+            "fell_at_least_0_5m": true,
+            "rest_center_near_0_1m": true,
+            "no_floor_penetration_over_1cm": true,
+            "tail_position_span_below_1mm": true,
+            "tail_speed_below_1cm_per_second": true,
+            "all_values_finite": true,
+            "stage_matches_physics": true
+          },
+          "passed": true,
+          "samples": 961,
+          "simulated_seconds": 2.0,
+          "dt_s": 0.0020833333333333333,
+          "initial_z_m": 1.0,
+          "final_z_m": 0.09999997913837433,
+          "min_z_m": 0.09999988228082657,
+          "tail_z_span_m": 0.0,
+          "tail_max_speed_m_s": 0.0,
+          "stage_position_m": [
+            -0.00026774880825541914,
+            -0.0002165840705856681,
+            0.09999997913837433
+          ],
+          "final_ordinal": 1921
+        },
+        "limitations": [
+          "Installed Warp wheel initializes the CUDA driver during Python readback even though PhysX, read tensors, and output composition run on CPU. A driverless machine was not tested.",
+          "The host has GPUs; they were discovered by Warp but not selected for physics or output kernels.",
+          "Viewer hook is in-process and untested with a renderer. No cross-process connection endpoint is supplied. Stage lifetime ends on context exit.",
+          "One box/floor scene only; no general fidelity, performance, or determinism claim.",
+          "PhysXConfig cache-setting API emits a deprecation warning but works in this pinned version.",
+          "ASD-STE100-style rewrite supplied in README; full standard compliance was not checked."
+        ]
+      },
+      {
+        "case": "spring",
+        "arm": "without",
+        "engine": "Newton 1.7.0",
+        "solver": "newton.solvers.SolverSemiImplicit",
+        "outcome": {
+          "status": "passed",
+          "actual_simulation_executed": true,
+          "automatic_differentiation_executed": true,
+          "required_physical_behavior_passed": true,
+          "final_process_exit_code": 0,
+          "initial_loss_m2": 0.015271536074578762,
+          "final_loss_m2": 6.408386191494864e-13,
+          "initial_stiffness_N_per_m": 4.0,
+          "target_stiffness_N_per_m": 12.0,
+          "estimated_stiffness_N_per_m": 12.000100114273323,
+          "automatic_gradient": -0.006199499126523733,
+          "finite_difference_gradient": -0.006193807348608971,
+          "gradient_relative_error": 0.0009181028658284637,
+          "analytic_max_position_error_m": 0.003475445105563857,
+          "gradient_updates": 28
+        },
+        "limitations": [
+          "Synthetic noiseless target and fit use the same discrete simulator; small fitting loss is not a measure of continuous-time accuracy.",
+          "Mass and damping are known; one stiffness parameter is learned; no collisions or unknown initial conditions.",
+          "Gradient was checked at the initial estimate with central finite differences of 0.01 N/m.",
+          "Float32 simulation; maximum analytical-trajectory position error was 0.00347544510556386 m at dt=0.01 s.",
+          "Tested only on Windows x86_64 and Python 3.13.12. GPU devices are enumerated by Warp, but all model arrays and kernels explicitly run on CPU.",
+          "First sandboxed installation failed on temporary-file permissions; an approved escalation installed packages only inside this trial.",
+          "An initial scalar-gravity API error was repaired. Intermediate precompiled-header permission warnings were removed by disabling precompiled headers in Warp configuration.",
+          "Three exploratory documentation URLs could not be loaded; official stable documentation and the official spring-cage example were accessible. Public package downloads succeeded."
+        ]
+      },
+      {
+        "case": "spring",
+        "arm": "with",
+        "engine": "Newton 1.6.1",
+        "solver": "newton.solvers.SolverSemiImplicit (symplectic Euler)",
+        "outcome": {
+          "status": "passed",
+          "actual_simulation_executed": true,
+          "physical_behavior_passed": true,
+          "initial_loss_m_squared": 0.014072688296437263,
+          "final_loss_m_squared": 1.0693571722564243e-10,
+          "known_stiffness_N_per_m": 25.0,
+          "initial_stiffness_N_per_m": 10.0,
+          "estimated_stiffness_N_per_m": 25.001123550000717,
+          "automatic_gradient_at_initial_estimate": -0.0014024219708517194,
+          "central_finite_difference_gradient": -0.0014015240594744682,
+          "finite_difference_perturbation_N_per_m": 0.02,
+          "gradient_relative_error": 0.0006402576370832442,
+          "analytic_max_position_error_m": 0.005099144969799796,
+          "dt_seconds": 0.01,
+          "steps": 100,
+          "optimizer_updates": 150
+        },
+        "limitations": [
+          "One smooth undamped spring, one short trajectory, no gravity or collisions",
+          "Known 1 kg mass, known initial state, and noise-free target generated with the same solver and timestep",
+          "Float32 simulation; finite timestep accounts for analytic position error",
+          "Gradient check is local to the initial stiffness with perturbation 0.02 N/m",
+          "No claims about real-data identification, other Newton solvers, contact gradients, ovphysx execution, GPU compute, or rendering",
+          "Warp enumerated installed GPUs, but every simulation array and kernel launch used CPU",
+          "Run script is provided; the successful executed command ran spring_fit.py directly using the installed environment",
+          "ASD-STE100-style report alternative was provided, without claiming full standard compliance"
+        ]
+      },
+      {
+        "case": "gripper",
+        "arm": "without",
+        "engine": "Newton 1.7.0",
+        "solver": "SolverMuJoCo, native MuJoCo 3.15.0 CPU backend, Newton constraint solver, elliptic friction cone",
+        "outcome": {
+          "actual_simulation": true,
+          "physical_behavior_passed": true,
+          "nominal_classification": "held",
+          "zero_friction_classification": "slipped_or_failed_to_lift",
+          "cpu": "Windows AMD64, Python 3.13.12; model device cpu",
+          "nominal_minimum_hold_height_gain_m": 0.09898246265947819,
+          "nominal_maximum_relative_slip_m": 0.0007723327726125717,
+          "nominal_final_block_center_height_m": 0.1189691573381424,
+          "nominal_maximum_penetration_m": 0.00039666518568992615,
+          "nominal_bilateral_contact_throughout_hold": true,
+          "nominal_floor_free_throughout_hold": true,
+          "zero_friction_minimum_hold_height_gain_m": 1.4901161193847656e-08,
+          "zero_friction_maximum_relative_slip_m": 0.10000739991664886,
+          "nominal_loop_wall_time_s": 1.0708505000220612,
+          "zero_friction_loop_wall_time_s": 1.159823099966161,
+          "timing_excludes_import_and_compilation": true
+        },
+        "limitations": [
+          "No physical robot validation, policy training, differentiability test, randomization, release test, or timestep-convergence study",
+          "One centered block, scripted open-loop controls, rigid finger geometry, and constant friction",
+          "Maximum nominal contact penetration was about 0.397 mm; contact and control settings need calibration",
+          "Early Warp compilation attempted to create a temporary directory in the host TEMP folder and failed with sandbox access errors; final code forces TEMP and TMP inside the trial. A failed empty temporary directory may remain outside the trial; no external cleanup attempted",
+          "No network download failure occurred; initial filesystem restrictions required elevated execution",
+          "setup.ps1 was authored but not itself executed end-to-end; its component installation and run commands were executed",
+          "ASD-STE100-style documentation supplied; full standard compliance was not checked"
+        ]
+      },
+      {
+        "case": "gripper",
+        "arm": "with",
+        "engine": "Newton 1.7.0",
+        "solver": "SolverXPBD, 12 iterations, 0.002 s timestep, CPU",
+        "outcome": {
+          "simulation_actually_executed": true,
+          "required_physical_behavior_passed": true,
+          "baseline": "Held, then released",
+          "baseline_minimum_hold_center_height_m": 0.1662173569202423,
+          "baseline_lift_above_initial_m": 0.14533507823944092,
+          "baseline_hold_relative_height_range_m": 0.0012716501951217651,
+          "baseline_release_drop_m": 0.14622025191783905,
+          "baseline_max_command_force_N": 4.466458894366894,
+          "zero_friction_control": "Failed to lift; remained on ground, as expected",
+          "zero_friction_minimum_hold_center_height_m": 0.01999710500240326,
+          "simulated_seconds_each": 3.5,
+          "csv_samples_each": 875,
+          "baseline_csv": "output/block_height.csv",
+          "control_csv": "output-zero-friction/block_height.csv",
+          "baseline_metrics": "output/metrics.json",
+          "control_metrics": "output-zero-friction/metrics.json",
+          "versions": {
+            "python": "3.13.12",
+            "newton": "1.7.0",
+            "warp-lang": "1.18.0",
+            "numpy": "2.5.4"
+          },
+          "platform": "Windows AMD64",
+          "cpu": "AMD64 Family 23 Model 49 Stepping 0, AuthenticAMD",
+          "model_device": "cpu"
+        },
+        "limitations": [
+          "One initial arrangement and one friction comparison; no reproducibility spread or broad robustness claim",
+          "Independent dynamic-body servos approximate the fingers; no mechanically constrained articulation or calibrated actuator model",
+          "Contact force and penetration were not calibrated or measured; contact counts include all scene pairs",
+          "No timestep-convergence test, hardware validation, gradients, batched training, sensor model, or in-process reset",
+          "Classification conflates failed-to-lift with slip; this control specifically failed to lift",
+          "Timing excludes model setup and partly uses kernels cached during interrupted attempt; not a clean cold-start benchmark",
+          "Warp detected GPUs during initialization but model and kernels ran on CPU",
+          "Setup script saved for reproducibility; equivalent installation commands executed, script itself not separately run",
+          "ASD-STE100-style alternative supplied in README.md; full standard/dictionary compliance not checked"
+        ]
+      }
+    ]
+  },
+  "revision_validation": {
+    "skill_version": "0.2.0",
+    "platform": "Windows x86_64",
+    "python": "3.13.12",
+    "scope": "Direct execution of copied packaged starters and saved-output checker regression tests; not a repeated paired agent study.",
+    "runs": [
+      {
+        "starter": "ovphysx-drop",
+        "command": [
+          "python",
+          "demo.py"
+        ],
+        "simulation_process_exit": 0,
+        "versions": {
+          "ovphysx": "0.7.0.74035321",
+          "ovstage": "0.3.0.1791986420",
+          "physx-usd-schemas": "25.11.2.72696984",
+          "warp-lang": "1.18.0",
+          "numpy": "2.5.4",
+          "packaging": "23.2"
+        },
+        "measurements": {
+          "actual_simulation": true,
+          "checks": {
+            "duration_two_seconds": true,
+            "initial_height_1m": true,
+            "fell_at_least_0_5m": true,
+            "rest_center_near_0_1m": true,
+            "no_floor_penetration_over_1cm": true,
+            "tail_position_span_below_1mm": true,
+            "tail_speed_below_1cm_per_second": true,
+            "all_values_finite": true,
+            "stage_matches_physics": true
+          },
+          "passed": true,
+          "samples": 961,
+          "simulated_seconds": 2.0,
+          "dt_s": 0.0020833333333333333,
+          "initial_z_m": 1.0,
+          "final_z_m": 0.09999997913837433,
+          "min_z_m": 0.09999988228082657,
+          "tail_z_span_m": 0.0,
+          "tail_max_speed_m_s": 0.0,
+          "stage_position_m": [
+            -0.00026774880825541914,
+            -0.0002165840705856681,
+            0.09999997913837433
+          ],
+          "final_ordinal": 1921
+        },
+        "source_sha256": {
+          "demo.py": "f4935ac6a987083c6b76ec25adc4a224aae37f978a3ce19d5e0c64c54092dec3",
+          "requirements.txt": "84baf4a27e7da2660f1538a620bf19cce9c8730d44f03f71111bb3368caf1536",
+          "scene.usda": "608089310890aa5078e6547256afeb9cb410eea25ca25008549ef76910c8a22b",
+          "source.usda": "16560f6adb18bd393c4db6b103f786bd3d8a62cf07dc7648858cc37457146637",
+          "validation.json": "5f5b1a3ef65d9d9ccb7a4a5fd08e7fad43c6404fdaab86a09ffa60063f4964bb"
+        },
+        "packaged_source_sha256": {
+          "demo.py": "ed862b4758a9b9ba27a51d62bbc7d83e5de6640f6a8bcc34d7562402b91f2a67",
+          "requirements.txt": "7dfe134c0caa95a28c789eaafac366859934b2526ad4fd8bd506bdb2d4512572",
+          "scene.usda": "978af39cf8a9482e56c05466884f154a44619a8d9350ee9be404c0b42ee18734",
+          "source.usda": "f0af8962c9c8d568df2c9cbd6fcb4b00d2e907b8944dffb8bb42e2f79a4984b0",
+          "validation.json": "5f5b1a3ef65d9d9ccb7a4a5fd08e7fad43c6404fdaab86a09ffa60063f4964bb"
+        }
+      },
+      {
+        "starter": "newton-spring",
+        "command": [
+          "python",
+          "spring_fit.py"
+        ],
+        "simulation_process_exit": 0,
+        "versions": {
+          "newton": "1.6.1",
+          "warp-lang": "1.18.0",
+          "numpy": "2.5.4"
+        },
+        "measurements": {
+          "device": "cpu",
+          "dt_seconds": 0.01,
+          "steps": 100,
+          "mass_kg": 1.0,
+          "rest_length_m": 1.0,
+          "initial_position_m": 1.2,
+          "target_stiffness_N_per_m": 25.0,
+          "initial_stiffness_N_per_m": 10.0,
+          "estimated_stiffness_N_per_m": 25.001123550000717,
+          "initial_loss_m_squared": 0.014072688296437263,
+          "final_loss_m_squared": 1.0693571722564243e-10,
+          "automatic_gradient": -0.0014024219708517194,
+          "finite_difference_gradient": -0.0014015240594744682,
+          "finite_difference_epsilon_N_per_m": 0.02,
+          "gradient_relative_error": 0.0006402576370832442,
+          "analytic_max_error_m": 0.005099144969799796,
+          "checks": {
+            "actual_cpu_newton_simulation": true,
+            "finite_changing_trajectory": true,
+            "fixed_anchor": true,
+            "oscillation_matches_analytic_within_0_006_m": true,
+            "finite_nonzero_automatic_gradient": true,
+            "gradient_relative_error_below_0_02": true,
+            "loss_reduced_by_at_least_99_percent": true,
+            "stiffness_within_1_percent": true
+          },
+          "physical_behavior_passed": true
+        },
+        "source_sha256": {
+          "requirements.txt": "c88522049535ee6ddffd4dacccb6988441a1df802e98814e0f0ef377d3f72f19",
+          "spring_fit.py": "f2672cde82b38e902211bbd1e457c76dcdd54449394c86e64fa4d339d0b98da9",
+          "validation.json": "ffeff228ec043577bf7240aa7a6fca8fa097246f1569deb25c7d9cecea175c4d"
+        },
+        "packaged_source_sha256": {
+          "requirements.txt": "c88522049535ee6ddffd4dacccb6988441a1df802e98814e0f0ef377d3f72f19",
+          "spring_fit.py": "b8ccc0bc13e890bdd2274ec8445fc36ccc0a4a98b4f058c137a59be963cd9049",
+          "validation.json": "ffeff228ec043577bf7240aa7a6fca8fa097246f1569deb25c7d9cecea175c4d"
+        }
+      },
+      {
+        "starter": "newton-grasp",
+        "command": [
+          "python",
+          "gripper.py"
+        ],
+        "simulation_process_exit": 0,
+        "versions": {
+          "newton": "1.7.0",
+          "warp-lang": "1.18.0",
+          "numpy": "2.5.4"
+        },
+        "measurements": {
+          "classification": "held",
+          "held": true,
+          "minimum_hold_height_m": 0.1662173569202423,
+          "lift_above_initial_m": 0.14533507823944092,
+          "hold_relative_slip_m": 0.0012716501951217651,
+          "release_drop_m": 0.14622025191783905,
+          "release_passed": true,
+          "final_height_m": 0.01999710500240326,
+          "max_command_force_N": 4.466458894366894,
+          "max_contact_count": 12,
+          "finite_states": true,
+          "body_count": 3,
+          "simulated_seconds": 3.5,
+          "wall_seconds_including_first_kernel_compilation": 19.864403999992646,
+          "versions": {
+            "newton": "1.7.0",
+            "warp-lang": "1.18.0",
+            "numpy": "2.5.4"
+          },
+          "device": "cpu",
+          "settings": {
+            "control_hz": 250,
+            "substeps": 2,
+            "solver_iterations": 12,
+            "friction": 0.8,
+            "contact_gap_m": 0.001,
+            "block_size_m": [
+              0.04,
+              0.04,
+              0.04
+            ],
+            "block_mass_kg": 0.08,
+            "finger_size_m": [
+              0.012,
+              0.05,
+              0.036
+            ],
+            "finger_mass_kg": 0.1,
+            "finger_center_z_m": 0.023,
+            "open_gap_m": 0.075,
+            "closed_gap_m": 0.036,
+            "kp_N_per_m": 2000,
+            "kd_Ns_per_m": 20,
+            "max_force_N": 12,
+            "rotation_kp_Nm": 0.3,
+            "rotation_kd_Nms": 0.008,
+            "max_torque_Nm": 0.2,
+            "settle_s": 0.25,
+            "close_s": 0.75,
+            "lift_s": 1.0,
+            "hold_s": 0.5,
+            "release_s": 0.25,
+            "fall_s": 0.75,
+            "lift_height_m": 0.15,
+            "minimum_lift_m": 0.12,
+            "maximum_hold_slip_m": 0.01,
+            "minimum_release_drop_m": 0.08
+          },
+          "samples": 875
+        },
+        "source_sha256": {
+          "config.json": "f94147bb4e984c854e1cf92912822d3486691a24c659bc393f9b7fab94d55562",
+          "gripper.py": "44f627dcb16c34a313c31c3ed2ceacb6c32a288bc58bb4e16a8794d8d3598dc5",
+          "requirements.txt": "28f74a2f2ce11be08b5cf91649b5511ff6701d644bbeae0a35c477738b846d32",
+          "validation.json": "eee17a5c0afbaea10e6ce0e6cd527f66921694ec51213fd4f7f17e4e3986f89f"
+        },
+        "packaged_source_sha256": {
+          "config.json": "f94147bb4e984c854e1cf92912822d3486691a24c659bc393f9b7fab94d55562",
+          "gripper.py": "a6a9d6a7f37e55e0c4cc464300c145b2cb104a27833cc6348868c1683bce8f2a",
+          "requirements.txt": "28f74a2f2ce11be08b5cf91649b5511ff6701d644bbeae0a35c477738b846d32",
+          "validation.json": "eee17a5c0afbaea10e6ce0e6cd527f66921694ec51213fd4f7f17e4e3986f89f"
+        }
+      },
+      {
+        "starter": "newton-grasp",
+        "command": [
+          "python",
+          "gripper.py",
+          "--friction",
+          "0",
+          "--output",
+          "output-zero-friction"
+        ],
+        "simulation_process_exit": 0,
+        "versions": {
+          "newton": "1.7.0",
+          "warp-lang": "1.18.0",
+          "numpy": "2.5.4"
+        },
+        "measurements": {
+          "classification": "slipped_or_failed_to_lift",
+          "held": false,
+          "minimum_hold_height_m": 0.01999710500240326,
+          "lift_above_initial_m": -0.0008851736783981323,
+          "hold_relative_slip_m": 1.730024814605713e-05,
+          "release_drop_m": -5.587935447692871e-09,
+          "release_passed": false,
+          "final_height_m": 0.019997110590338707,
+          "max_command_force_N": 4.358326761202163,
+          "max_contact_count": 14,
+          "finite_states": true,
+          "body_count": 3,
+          "simulated_seconds": 3.5,
+          "wall_seconds_including_first_kernel_compilation": 6.063626800023485,
+          "versions": {
+            "newton": "1.7.0",
+            "warp-lang": "1.18.0",
+            "numpy": "2.5.4"
+          },
+          "device": "cpu",
+          "settings": {
+            "control_hz": 250,
+            "substeps": 2,
+            "solver_iterations": 12,
+            "friction": 0.0,
+            "contact_gap_m": 0.001,
+            "block_size_m": [
+              0.04,
+              0.04,
+              0.04
+            ],
+            "block_mass_kg": 0.08,
+            "finger_size_m": [
+              0.012,
+              0.05,
+              0.036
+            ],
+            "finger_mass_kg": 0.1,
+            "finger_center_z_m": 0.023,
+            "open_gap_m": 0.075,
+            "closed_gap_m": 0.036,
+            "kp_N_per_m": 2000,
+            "kd_Ns_per_m": 20,
+            "max_force_N": 12,
+            "rotation_kp_Nm": 0.3,
+            "rotation_kd_Nms": 0.008,
+            "max_torque_Nm": 0.2,
+            "settle_s": 0.25,
+            "close_s": 0.75,
+            "lift_s": 1.0,
+            "hold_s": 0.5,
+            "release_s": 0.25,
+            "fall_s": 0.75,
+            "lift_height_m": 0.15,
+            "minimum_lift_m": 0.12,
+            "maximum_hold_slip_m": 0.01,
+            "minimum_release_drop_m": 0.08
+          },
+          "samples": 875
+        },
+        "source_sha256": {
+          "config.json": "f94147bb4e984c854e1cf92912822d3486691a24c659bc393f9b7fab94d55562",
+          "gripper.py": "44f627dcb16c34a313c31c3ed2ceacb6c32a288bc58bb4e16a8794d8d3598dc5",
+          "requirements.txt": "28f74a2f2ce11be08b5cf91649b5511ff6701d644bbeae0a35c477738b846d32",
+          "validation.json": "eee17a5c0afbaea10e6ce0e6cd527f66921694ec51213fd4f7f17e4e3986f89f"
+        },
+        "packaged_source_sha256": {
+          "config.json": "f94147bb4e984c854e1cf92912822d3486691a24c659bc393f9b7fab94d55562",
+          "gripper.py": "a6a9d6a7f37e55e0c4cc464300c145b2cb104a27833cc6348868c1683bce8f2a",
+          "requirements.txt": "28f74a2f2ce11be08b5cf91649b5511ff6701d644bbeae0a35c477738b846d32",
+          "validation.json": "eee17a5c0afbaea10e6ce0e6cd527f66921694ec51213fd4f7f17e4e3986f89f"
+        }
+      }
+    ],
+    "checker_regressions": {
+      "passed": true,
+      "case_count": 13,
+      "cases": [
+        {
+          "case": "measured_drop",
+          "expected_exit": 0,
+          "actual_exit": 0
+        },
+        {
+          "case": "measured_spring",
+          "expected_exit": 0,
+          "actual_exit": 0
+        },
+        {
+          "case": "measured_grasp_and_control",
+          "expected_exit": 0,
+          "actual_exit": 0
+        },
+        {
+          "case": "missing_contact_evidence_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "stale_stage_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "wrong_gradient_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "nonfinite_csv_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "duplicate_time_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "no_lift_is_not_hold",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "confounded_control_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "synthetic_contact_fields_accepted",
+          "expected_exit": 0,
+          "actual_exit": 0
+        },
+        {
+          "case": "synthetic_floor_support_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        },
+        {
+          "case": "profile_mismatch_rejected",
+          "expected_exit": 2,
+          "actual_exit": 2
+        }
+      ]
+    },
+    "execution_note": "The first drop PowerShell output pipeline remained open through a native helper handle after Python exited. Direct file-output execution confirmed Python exit 0; the waiting validation shell was closed. Shared helper services were not stopped.",
+    "packaging_note": "Repository upload normalizes text to LF and removes trailing blank lines. source_sha256 records the executed copies; packaged_source_sha256 records the distributed files. Python syntax trees are unchanged by this formatting."
+  },
+  "limitations": [
+    "One original trial per condition; different valid implementations, package versions, and thresholds.",
+    "Concurrent resource use, permissions, downloads, and compilation prevent a controlled speed comparison.",
+    "No GPU, Linux ovnewton, real robot, automatic skill discovery, or official NVIDIA CI evaluation.",
+    "No new paired agent study of 0.2.0; revised-skill uplift remains unmeasured.",
+    "Synthetic and altered checker fixtures are validation-code tests, not physics measurements."
+  ]
+}

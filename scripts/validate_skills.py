@@ -16,6 +16,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
+    "physical-ai": {"physical-ai-select-physics-engine"},
     "ovnewton": {"physical-ai-physics-selection", "ovnewton-prepare-scene", "ovnewton-tune-physics"},
     "ovphysx": {"ovphysx-selection"},
 }

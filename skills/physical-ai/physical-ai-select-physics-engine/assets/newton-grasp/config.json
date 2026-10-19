@@ -1,0 +1,12 @@
+{
+  "control_hz": 250, "substeps": 2, "solver_iterations": 12,
+  "friction": 0.8, "contact_gap_m": 0.001,
+  "block_size_m": [0.04, 0.04, 0.04], "block_mass_kg": 0.08,
+  "finger_size_m": [0.012, 0.05, 0.036], "finger_mass_kg": 0.1,
+  "finger_center_z_m": 0.023, "open_gap_m": 0.075, "closed_gap_m": 0.036,
+  "kp_N_per_m": 2000, "kd_Ns_per_m": 20, "max_force_N": 12,
+  "rotation_kp_Nm": 0.3, "rotation_kd_Nms": 0.008, "max_torque_Nm": 0.2,
+  "settle_s": 0.25, "close_s": 0.75, "lift_s": 1.0, "hold_s": 0.5,
+  "release_s": 0.25, "fall_s": 0.75, "lift_height_m": 0.15,
+  "minimum_lift_m": 0.12, "maximum_hold_slip_m": 0.01, "minimum_release_drop_m": 0.08
+}

@@ -1,0 +1,18 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    upAxis = "Z"
+    subLayers = [@source.usda@]
+)
+over "World"
+{
+    over "PhysicsScene" (
+        prepend apiSchemas = ["PhysxSceneAPI"]
+    )
+    {
+        uniform token physxScene:solverType = "TGS"
+        bool physxScene:enableGPUDynamics = false
+        uniform token physxScene:broadphaseType = "MBP"
+    }
+}
